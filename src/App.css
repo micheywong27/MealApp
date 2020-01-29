@@ -1,5 +1,13 @@
+ /* @import "bootstrap";  */
+ 
 .App {
   text-align: center;
+  background-image: url("https://i5.walmartimages.com/asr/fa7379a8-ce94-4d68-88ea-7a1225de0b66_1.f40b99d05e47121a273df5250dadb121.jpeg") ;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  
 }
 
 .App-logo {
@@ -28,6 +36,92 @@
   color: #61dafb;
 }
 
+.link {
+  text-decoration: none;
+  font-size: 20px;
+  color: white
+}
+
+.logo {
+  font-size: 30px;
+  color: white
+}
+
+.form {
+  font-family: cursive;
+  color: white
+}
+
+.navbar {
+  display: flex;
+  font-family: cursive;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  background: rgba(250, 17, 17, 0.925);
+}
+
+.profile {
+  font-family: cursive;
+  color: white
+}
+
+.heading {
+	font-size: 30px;
+	padding: 16px 0;
+	color: white;
+  text-align: center;
+}
+
+.container {
+	margin: 36px auto;
+	width: 100%;
+	max-width: 800px;
+}
+
+.search-label {
+	position: relative;
+}
+
+.container input {
+	width: 100%;
+	padding: 5px;
+	font-size: 36px;
+	font-style: italic;
+	color: #444;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.recipeimg {
+  opacity: 1.0;
+}
+
+.recipe {
+  font-family: cursive;
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.9;
+  margin: 5%;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+}
+
+.recipes {
+  font-family: cursive;
+  color: white
+}
+
+.search-icon {
+	position: absolute;
+	top: 40px;
+	font-size: 40px;
+	color: black;
+	right: 18px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +130,4 @@
     transform: rotate(360deg);
   }
 }
+

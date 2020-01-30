@@ -2,16 +2,35 @@ import React from 'react';
 
 class RecipeForm extends React.Component{
     render(){
+        let {url, name, ingredients, instructions} = this.props ;
         return(
             <div className='form'>
                 <h1>Tell us about your recipe!</h1>
-                <form>
+                <form onSubmit={(e) => this.props.submitForm(e, url, name, ingredients, instructions)}>
                     <div> 
-                        <input type='text' placeholder='Name' />
+                        <input type="text" 
+                                name="url"
+                                placeholder="Insert imgage URL" 
+                                value={url} 
+                                onChange={e =>this.props.onChange(e)}/>
                         <br />
-                        <input type='text' placeholder='Ingredients' />
+                        <input type='text' 
+                                placeholder='Name' 
+                                name="name"
+                                value={name}
+                                onChange={(e) => this.props.onChange(e)}/>
                         <br />
-                        <textarea type='text' placeholder='Instructions' />
+                        <input type='text' 
+                                placeholder='Ingredients'
+                                name="ingredients"
+                                value={ingredients}
+                                onChange={(e) => this.props.onChange(e)} />
+                        <br />
+                        <textarea type='text' 
+                                    placeholder='Instructions'
+                                    name="instructions"
+                                    value={instructions}
+                                    onChange={(e) => this.props.onChange(e)} />
                         <br />
                         <button>Submit</button>
                     </div>

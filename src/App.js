@@ -6,15 +6,22 @@ import UserProfile from './containters/UserProfile';
 import RecipeForm from './components/RecipeForm';
 import ScheduleMeal from './components/ScheduleMeal';
 import RecipeShowPage from './components/RecipeShowPage';
+import MyPostsShowPage from './components/MyPostsShowPage';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
     recipes: [],
+    myRecipes: [],
     searchTerm: '',
     nutritionInfo: [],
     recipe : [],
-    myFavs: []
+    myFavs: [],
+    url: '',
+    name: '',
+    ingredients: '',
+    instructions: '',
+    showMyRecipe: []
   }
 
   componentDidMount(){
@@ -49,9 +56,9 @@ class App extends React.Component {
   }
 
   //search bar input will GET fetch to show results based on the search term
-  searchResults=(term)=>{
+  searchResults=(searched)=>{
     this.setState({
-      searchTerm: term
+      searchTerm: searched
     })
     var key = process.env.REACT_APP_API_KEY;
     var term= this.state.searchTerm
@@ -87,15 +94,77 @@ class App extends React.Component {
     })
   }
 
-  //on form submit, POST fetch
-  // tcp://127.0.0.1:3000
+  onChange=(e)=>{
+    this.setState({
+        [e.target.name]: e.target.value
+    })
+  }
+
+  submitForm=(e, url, name,ingredients,instructions)=>{
+    e.preventDefault()
+    fetch('http://127.0.0.1:3000/recipe_posts', {
+          method: 'POST',
+          headers:{ 'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify({
+            userId: 1,
+            url: url,
+            name: name, 
+            ingredients: ingredients, 
+            instructions: instructions
+        })
+      })
+    .then(resp => resp.json())
+    .then( () => {
+      this.setState({
+        url: '',
+        name: '',
+        ingredients: '',
+        instructions: ''
+      })
+    })
+  }
+
+  //everytime you click my profile, it will fetch the current list of my recipes
+  getMyRecipes=()=>{
+    fetch(`http://127.0.0.1:3000/recipe_posts`)
+    .then(resp => resp.json())
+    .then(myrecipes => {
+        this.setState({
+          myRecipes: myrecipes
+        })
+    })
+    }
+
+    showRecipe=(recipe)=>{
+      this.setState({
+        showMyRecipe: recipe
+      })
+    }
+
+    deleteRecipe=(recipe)=>{
+      const id = recipe.id
+      fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
+        method: 'delete'
+      })
+      .then(() => {console.log("recipe removed")})
+      .catch(err => {
+        console.error(err)
+      })
+    }
 
   render(){ 
+    console.log(this.state.url)
     return (
       <div className="App">
-        <Navbar />
+        <Navbar getMyRecipes={this.getMyRecipes}/>
         <Switch> 
-
+          <Route path='/recipes/myposts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
+                                                            addToFavs={this.addToFavs}
+                                                            removeFromFavs={this.removeFromFavs}
+                                                            myFavs={this.state.myFavs}
+                                                            deleteRecipe={this.deleteRecipe}
+                                                            /> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
@@ -107,10 +176,19 @@ class App extends React.Component {
                                                             fetchRecipe={this.fetchRecipe} 
                                                             />}  />
           <Route path='/profile' render={() => <UserProfile myFavs={this.state.myFavs}
+                                                            nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
+                                                            myRecipes={this.state.myRecipes}
+                                                            showRecipe={this.showRecipe}
                                                             /> } />
-          <Route path='/form' render={() => <RecipeForm /> } />
+          <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
+                                                        url={this.state.url}
+                                                        name={this.state.name}
+                                                        ingredients={this.state.ingredients}
+                                                        instructions={this.state.instructions}
+                                                        onChange={this.onChange}
+                                                        /> } />
           <Route path='/calendar' render={() => <ScheduleMeal /> } />
         </Switch>
       </div>

@@ -17,6 +17,7 @@ class App extends React.Component {
     nutritionInfo: [],
     recipe : [],
     myFavs: [],
+    url: '',
     name: '',
     ingredients: '',
     instructions: '',
@@ -99,7 +100,7 @@ class App extends React.Component {
     })
   }
 
-  submitForm=(e, name,ingredients,instructions)=>{
+  submitForm=(e, url, name,ingredients,instructions)=>{
     e.preventDefault()
     fetch('http://127.0.0.1:3000/recipe_posts', {
           method: 'POST',
@@ -107,6 +108,7 @@ class App extends React.Component {
                     'Accept': 'application/json'},
           body: JSON.stringify({
             userId: 1,
+            url: url,
             name: name, 
             ingredients: ingredients, 
             instructions: instructions
@@ -115,6 +117,7 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then( () => {
       this.setState({
+        url: '',
         name: '',
         ingredients: '',
         instructions: ''
@@ -151,6 +154,7 @@ class App extends React.Component {
     }
 
   render(){ 
+    console.log(this.state.url)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}/>
@@ -179,6 +183,7 @@ class App extends React.Component {
                                                             showRecipe={this.showRecipe}
                                                             /> } />
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
+                                                        url={this.state.url}
                                                         name={this.state.name}
                                                         ingredients={this.state.ingredients}
                                                         instructions={this.state.instructions}

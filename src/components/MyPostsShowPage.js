@@ -13,13 +13,12 @@ class MyPostsShowPage extends React.Component{
     }
 
     render() {
-        console.log(this.props.recipe)
-        // const img = this.props.nutritionInfo.image
+        const inputUrl = this.props.recipe.url
+        const url = inputUrl.toString()
         const favButton = this.props.myFavs.includes(this.props.recipe) ? "❤️" : "♡"
-
         return(
             <div className="recipe">
-                {/* <img alt="recipeimg" className="recipeimg" src={img} /> */}
+                <img alt="recipeimg" className="recipeimg" src={url} />
                 <h1>{this.props.recipe.name}</h1>
                 {/* <p>Ready in: {this.props.recipe.readyInMinutes} minutes</p>
                 <p>Serving size: {this.props.recipe.servings}</p> */}

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class MyPostsShowPage extends React.Component{
-    
     favFilter=(recipe)=>{
         if(this.props.myFavs.includes(recipe)){
             this.props.removeFromFavs(recipe)
@@ -15,21 +14,23 @@ class MyPostsShowPage extends React.Component{
     render() {
         const inputUrl = this.props.recipe.url
         const url = inputUrl.toString()
-        const favButton = this.props.myFavs.includes(this.props.recipe) ? "❤️" : "♡"
+        console.log(this.props.recipe)
         return(
             <div className="recipe">
                 <img alt="recipeimg" className="recipeimg" src={url} />
                 <h1>{this.props.recipe.name}</h1>
-                {/* <p>Ready in: {this.props.recipe.readyInMinutes} minutes</p>
-                <p>Serving size: {this.props.recipe.servings}</p> */}
+                <p>Ready in: {this.props.recipe.cookTime} minutes</p>
+                <p>Serving size: {this.props.recipe.servingSize}</p>
                 <p>Ingredients: {this.props.recipe.ingredients} </p>
                 <p>Instructions: {this.props.recipe.instructions}</p>
-                <br />
-                <button onClick={()=>{this.favFilter(this.props.recipe)}}>{favButton}</button>
-                <button onClick={()=>this.props.deleteRecipe(this.props.recipe)}>Delete recipe</button>
+                <button onClick={()=>this.props.deleteRecipe(this.props.recipe)}> Delete recipe </button>
                 <Link to='/recipes'>
-                <button >Go back to recipes</button>
+                <button>Go back to recipes</button>
                 </Link>
+                <br />
+                <a href="#" class="previous round">&#8249;</a>
+                <a href="#" class="next round">&#8250;</a>
+                <br/>
             </div>
         )
     } 

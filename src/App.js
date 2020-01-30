@@ -21,7 +21,9 @@ class App extends React.Component {
     name: '',
     ingredients: '',
     instructions: '',
-    showMyRecipe: []
+    showMyRecipe: [],
+    cookTime: '',
+    servingSize: ''
   }
 
   componentDidMount(){
@@ -100,18 +102,20 @@ class App extends React.Component {
     })
   }
 
-  submitForm=(e, url, name,ingredients,instructions)=>{
+  submitForm=(e, url, name, ingredients, instructions, cookTime, servingSize)=>{
+    console.log(cookTime, servingSize)
     e.preventDefault()
     fetch('http://127.0.0.1:3000/recipe_posts', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
                     'Accept': 'application/json'},
           body: JSON.stringify({
-            userId: 1,
             url: url,
             name: name, 
             ingredients: ingredients, 
-            instructions: instructions
+            instructions: instructions,
+            cookTime: cookTime,
+            servingSize: servingSize
         })
       })
     .then(resp => resp.json())
@@ -120,7 +124,9 @@ class App extends React.Component {
         url: '',
         name: '',
         ingredients: '',
-        instructions: ''
+        instructions: '',
+        cookTime: '',
+        servingSize: ''
       })
     })
   }
@@ -154,7 +160,6 @@ class App extends React.Component {
     }
 
   render(){ 
-    console.log(this.state.url)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}/>
@@ -187,6 +192,8 @@ class App extends React.Component {
                                                         name={this.state.name}
                                                         ingredients={this.state.ingredients}
                                                         instructions={this.state.instructions}
+                                                        cookTime={this.state.cookTime}
+                                                        servingSize={this.state.servingSize}
                                                         onChange={this.onChange}
                                                         /> } />
           <Route path='/calendar' render={() => <ScheduleMeal /> } />

@@ -1,15 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class MyFavorites extends React.Component{
     render(){
+        console.log(this.props.recipe)
+        let { recipe }= this.props;
         return(
-            <div>
-                <h1>My Favorites</h1>
-                {
-                    this.props.myFavs.map(fav => {
-                        return <p>{fav.title}</p>
-                    })
-                }
+            //onClick go to recipe show page
+            <div className="mypost" onClick={() => this.props.showRecipe(recipe)} >
+                 <Link to={{pathname:`/recipes/${recipe.id}`,
+                        recipe: recipe
+                        }}
+                        className='link'>  
+                <h2>♦ {recipe.title}</h2>
+                </Link>
             </div>
         )
     }

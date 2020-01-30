@@ -24,10 +24,20 @@ class UserProfile extends React.Component{
                     :
                     <p>You haven't posted any recipes</p>
                 }
+                <h1>My Favorites</h1>
+                {
+                    this.props.myFavs ? 
+                    this.props.myFavs.map(recipe => {
+                        return <MyFavorites recipe={recipe}
+                                            key={recipe.id}
+                                            addToFavs={this.props.addToFavs}
+                                            removeFromFavs={this.props.removeFromFavs}
+                                            showRecipe={this.props.showRecipe}/>
+                    })
+                    :
+                    <p>You haven't favorited any recipes</p>
+                }
                 
-                <MyFavorites myFavs={this.props.myFavs}
-                            addToFavs={this.props.addToFavs}
-                            removeFromFavs={this.props.removeFromFavs}/>
             </div>
         )
     }

@@ -2,8 +2,6 @@ import React from 'react';
 import moment from 'moment'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { borderColor } from '@material-ui/system';
-
 
 moment.locale("en-GB");
 //https://momentjs.com/timezone/

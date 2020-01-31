@@ -23,7 +23,8 @@ class App extends React.Component {
     instructions: '',
     showMyRecipe: [],
     cookTime: '',
-    servingSize: ''
+    servingSize: '',
+    isSubmitted: false
   }
 
   componentDidMount(){
@@ -103,7 +104,6 @@ class App extends React.Component {
   }
 
   submitForm=(e, url, name, ingredients, instructions, cookTime, servingSize)=>{
-    console.log(cookTime, servingSize)
     e.preventDefault()
     fetch('http://127.0.0.1:3000/recipe_posts', {
           method: 'POST',
@@ -126,8 +126,15 @@ class App extends React.Component {
         ingredients: '',
         instructions: '',
         cookTime: '',
-        servingSize: ''
+        servingSize: '',
+        isSubmitted: true
       })
+    })
+  }
+
+  resetIsSubmitted=()=>{
+    this.setState({
+      isSubmitted: !this.state.isSubmitted
     })
   }
 
@@ -162,7 +169,10 @@ class App extends React.Component {
   render(){ 
     return (
       <div className="App">
-        <Navbar getMyRecipes={this.getMyRecipes}/>
+        <Navbar getMyRecipes={this.getMyRecipes}
+                isSubmitted={this.state.isSubmitted}
+                resetIsSubmitted={this.resetIsSubmitted}
+                />
         <Switch> 
           <Route path='/recipes/myposts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
@@ -195,6 +205,7 @@ class App extends React.Component {
                                                         cookTime={this.state.cookTime}
                                                         servingSize={this.state.servingSize}
                                                         onChange={this.onChange}
+                                                        isSubmitted={this.state.isSubmitted}
                                                         /> } />
           <Route path='/calendar' render={() => <ScheduleMeal /> } />
         </Switch>

@@ -14,7 +14,6 @@ class MyPostsShowPage extends React.Component{
     render() {
         const inputUrl = this.props.recipe.url
         const url = inputUrl.toString()
-        console.log(this.props.recipe)
         return(
             <div className="recipe">
                 <img alt="recipeimg" className="recipeimg" src={url} />
@@ -28,8 +27,8 @@ class MyPostsShowPage extends React.Component{
                 <button>Go back to recipes</button>
                 </Link>
                 <br />
-                <a href="#" class="previous round">&#8249;</a>
-                <a href="#" class="next round">&#8250;</a>
+                <a href="#" className="previous round">&#8249;</a>
+                <a href="#" className="next round">&#8250;</a>
                 <br/>
             </div>
         )

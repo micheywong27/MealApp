@@ -1,4 +1,5 @@
 import React from 'react';
+import FormPostMessage from './FormPostMessage';
 
 class RecipeForm extends React.Component{
     render(){
@@ -43,10 +44,11 @@ class RecipeForm extends React.Component{
                                     name="instructions"
                                     value={instructions}
                                     onChange={(e) => this.props.onChange(e)} />
-                        <br />
-                        <button>Submit</button>
+                        <br />                         
+                        <button >Submit</button>               
                     </div>
-                </form>
+                </form> 
+                {this.props.isSubmitted && <FormPostMessage />}
             </div>
         )
     }

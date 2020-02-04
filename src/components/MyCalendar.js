@@ -4,27 +4,13 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 class MyCalendar extends React.Component{
-    state = {
-      events: [
-        {
-          title: "Eat chicken parm now",
-          allDay: false,
-          start: new Date(2020, 1, 4, 8, 15), // 8.15 AM on 2nd
-          end: new Date(2020, 1, 4, 14, 0) // 2.00 PM on 2nd
-        },
-         {
-             title: "Go get that bacon egg n cheeeez to start the day",
-             allDay: false,
-             start: new Date(2020, 1, 7, 8, 15), // 8.15 AM on 2nd
-             end: new Date(2020, 1, 7, 10, 30) // 10.30 PM on 2nd
-           }
-      ],
-      event: []
-    }
+   
 
   render(){
+
     const mappableEvents = this.props.events.map(event => {
        event.start = new Date(event.start)
+       event.end = new Date(event.end)
        return event
     })
   

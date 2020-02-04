@@ -29,13 +29,23 @@ class ScheduleMeal extends React.Component {
                     />
             <br />
             <TextField
-            id="datetime-local"
-            label="Schedule meal"
+            id="datetime-local-start"
+            label="Schedule start time"
             type="datetime-local"
-            name="setDate"
+            name="startTime"
             defaultValue={this.state.defaultValue}  
             onChange={e => this.props.setInputValue(e)}
-
+            InputLabelProps={{
+                shrink: true,
+            }}
+            />
+            <TextField
+            id="datetime-local-end"
+            label="Schedule end time"
+            type="datetime-local"
+            name="endTime"
+            defaultValue={this.state.defaultValue}  
+            onChange={e => this.props.setInputValue(e)}
             InputLabelProps={{
                 shrink: true,
             }}

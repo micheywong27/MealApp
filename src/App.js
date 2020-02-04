@@ -27,7 +27,8 @@ class App extends React.Component {
     cookTime: '',
     servingSize: '',
     isSubmitted: false,
-    setDate: '',
+    startTime: '',
+    endTime: '',
     recipeInputName: '',
     events: []
   }
@@ -246,8 +247,9 @@ class App extends React.Component {
   addEvent = (e) => {
     e.preventDefault()
     const recipeName = this.state.recipeInputName
-    const setDate = this.state.setDate
-    console.log(setDate)
+    const startTime = this.state.startTime
+    const endTime = this.state.endTime
+    console.log("WERE IN START TIME", startTime)
     fetch('http://127.0.0.1:3000/create_events', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -255,17 +257,13 @@ class App extends React.Component {
           body: JSON.stringify({
             title: recipeName,
             allDay: false,
-            start: setDate,
-            end: '2020-02-04T15:20',
+            start: startTime,
+            end: endTime,
             postId: 1
         })
       })
     .then(resp => resp.json())
-    .then(
-      this.setState({
-
-      })
-    )
+    .then(event => console.log(event))
   }
 
   setInputValue = (e) => {
@@ -335,7 +333,8 @@ class App extends React.Component {
                                                         /> } />
           <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
                                                 setInputValue={this.setInputValue}
-                                                setDate={this.state.setDate}
+                                                startTime={this.state.startTime}
+                                                endTime = {this.state.endTime}
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
                                                 events={this.state.events}

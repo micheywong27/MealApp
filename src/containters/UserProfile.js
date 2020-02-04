@@ -4,6 +4,7 @@ import MyFavorites from './MyFavorites'
 
 class UserProfile extends React.Component{
     render(){
+        console.log("on my profile", this.props.myFavs) 
         return(
             <div className="profile">
                 <h1>Michelle's Profile</h1>
@@ -14,9 +15,6 @@ class UserProfile extends React.Component{
                     this.props.myRecipes.map(recipe => {
                         return <MyPosts recipe={recipe}
                                         key={recipe.id}
-                                        myFavs={this.props.myFavs}
-                                        addToFavs={this.props.addToFavs}
-                                        removeFromFavs={this.props.removeFromFavs}
                                         nutritionInfo={this.props.nutritionInfo}
                                         showRecipe={this.props.showRecipe}
                                         />

@@ -78,14 +78,88 @@ class App extends React.Component {
     })
   }
 
-  addToFavs=(recipe)=>{
-    console.log("adding to favs")
-    if(!this.state.myFavs.includes(recipe)){
+  addToFavs=(recipe, nutritionInfo)=>{
+    const id = nutritionInfo.id
+    const url = nutritionInfo.image
+    const name = nutritionInfo.title
+    const ingredients = nutritionInfo.extendedIngredients.map(ingredient => {
+      return ingredient.name
+    })
+    const myingredients = ingredients.join(" ")
+    const instructions = nutritionInfo.instructions
+    const cookTime = nutritionInfo.cookingMinutes
+    const servingSize = nutritionInfo.servings 
+
       this.setState({
         myFavs: [...this.state.myFavs, recipe]
       })
-    }
+      
+      fetch('http://127.0.0.1:3000/recipe_posts', {
+          method: 'POST',
+          headers:{ 'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify({
+            url: url,
+            name: name, 
+            ingredients: myingredients, 
+            instructions: instructions,
+            cookTime: cookTime,
+            servingSize: servingSize,
+            spoonKey: id
+        })
+      })
+    .then(resp => resp.json())
+    .then((recipe) => {
+      this.setState({
+        url: '',
+        name: '',
+        ingredients: '',
+        instructions: '',
+        cookTime: '',
+        servingSize: '',
+        isSubmitted: true
+      })
+      this.postToFavs(recipe)
+    })
   }
+  
+  postToFavs=(recipe)=>{
+    const newId = recipe.id
+    fetch('http://127.0.0.1:3000/favorites', {
+        method: 'POST',
+        headers:{ 'Content-Type': 'application/json',
+                  'Accept': 'application/json'},
+        body: JSON.stringify({
+          postId: newId
+        })
+      })
+    .then(resp => resp.json())
+  }
+
+  //everytime you click my profile, it will fetch the current list of my recipes/ my favs
+  getMyRecipes=()=>{
+    fetch(`http://127.0.0.1:3000/recipe_posts`)
+    .then(resp => resp.json())
+    .then(myrecipes => {
+        this.setState({
+          myRecipes: myrecipes
+        }
+      )
+    })
+    this.getMyFavs()
+  }
+
+  getMyFavs=()=>{
+    const theFavs = this.state.myRecipes.filter(recipe => {
+      return !!recipe.spoonKey
+    })
+    this.setState({
+      myFavs: theFavs
+    })
+   }
+
+
+
 
   removeFromFavs=(recipe)=>{
     console.log("removing from favs")
@@ -134,37 +208,28 @@ class App extends React.Component {
 
   resetIsSubmitted=()=>{
     this.setState({
-      isSubmitted: !this.state.isSubmitted
+      isSubmitted: false
     })
   }
 
-  //everytime you click my profile, it will fetch the current list of my recipes
-  getMyRecipes=()=>{
-    fetch(`http://127.0.0.1:3000/recipe_posts`)
-    .then(resp => resp.json())
-    .then(myrecipes => {
-        this.setState({
-          myRecipes: myrecipes
-        })
+
+  showRecipe=(recipe)=>{
+    console.log("in show recipe", recipe)
+    this.setState({
+      showMyRecipe: recipe
     })
-    }
+  }
 
-    showRecipe=(recipe)=>{
-      this.setState({
-        showMyRecipe: recipe
-      })
-    }
-
-    deleteRecipe=(recipe)=>{
-      const id = recipe.id
-      fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
-        method: 'delete'
-      })
-      .then(() => {console.log("recipe removed")})
-      .catch(err => {
-        console.error(err)
-      })
-    }
+  deleteRecipe=(recipe)=>{
+    const id = recipe.id
+    fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
+      method: 'delete'
+    })
+    .then(() => {console.log("recipe removed")})
+    .catch(err => {
+      console.error(err)
+    })
+  }
 
   render(){ 
     return (
@@ -174,7 +239,7 @@ class App extends React.Component {
                 resetIsSubmitted={this.resetIsSubmitted}
                 />
         <Switch> 
-          <Route path='/recipes/myposts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
+          <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}

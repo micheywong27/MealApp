@@ -2,17 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class MyFavorites extends React.Component{
-    render(){
-        console.log(this.props.recipe)
+    render(){      
         let { recipe }= this.props;
+    //WHEN YOU CLICK MY PROFILE, you have to click it twice to load the fav recipes
         return(
-            //onClick go to recipe show page
             <div className="mypost" onClick={() => this.props.showRecipe(recipe)} >
-                 <Link to={{pathname:`/recipes/${recipe.id}`,
+                 <Link to={{pathname:`/recipes/posts/${recipe.id}`,
                         recipe: recipe
                         }}
                         className='link'>  
-                <h2>♦ {recipe.title}</h2>
+                <h2>♦ {recipe.name}</h2>
                 </Link>
             </div>
         )

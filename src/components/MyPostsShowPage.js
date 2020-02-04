@@ -2,21 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class MyPostsShowPage extends React.Component{
-    favFilter=(recipe)=>{
-        if(this.props.myFavs.includes(recipe)){
-            this.props.removeFromFavs(recipe)
-        }
-        else {
-            this.props.addToFavs(recipe)
-        }
-    }
 
     render() {
-        const inputUrl = this.props.recipe.url
-        const url = inputUrl.toString()
         return(
             <div className="recipe">
-                <img alt="recipeimg" className="recipeimg" src={url} />
+                <img alt="recipeimg" className="recipeimg" src={this.props.recipe.url} />
                 <h1>{this.props.recipe.name}</h1>
                 <p>Ready in: {this.props.recipe.cookTime} minutes</p>
                 <p>Serving size: {this.props.recipe.servingSize}</p>

@@ -3,8 +3,7 @@ import MyPosts from './MyPosts'
 import MyFavorites from './MyFavorites'
 
 class UserProfile extends React.Component{
-    render(){
-        console.log("on my profile", this.props.myFavs) 
+    render(){ 
         return(
             <div className="profile">
                 <h1>Michelle's Profile</h1>

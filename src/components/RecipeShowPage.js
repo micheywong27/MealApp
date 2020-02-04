@@ -35,8 +35,8 @@ class RecipeShowPage extends React.Component{
                 <button >Go back to recipes</button>
                 </Link>
                 <br/>
-                <a href="#" className="previous round">&#8249;</a>
-                <a href="#" className="next round">&#8250;</a>
+                <a href="/#" className="previous round">&#8249;</a>
+                <a href="/#" className="next round">&#8250;</a>
             </div>
         )
     } 

@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import FavoriteShowPage from './components/FavoriteShowPage';
+import Login from './components/Login'
+import MyPostsShowPage from './components/MyPostsShowPage';
 import Navbar from './components/Navbar';
 import RecipePosts from './containters/RecipePosts';
-import UserProfile from './containters/UserProfile';
 import RecipeForm from './components/RecipeForm';
-import ScheduleMeal from './components/ScheduleMeal';
 import RecipeShowPage from './components/RecipeShowPage';
-import MyPostsShowPage from './components/MyPostsShowPage';
+import ScheduleMeal from './components/ScheduleMeal';
+import UserProfile from './containters/UserProfile';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
@@ -79,7 +81,7 @@ class App extends React.Component {
   }
 
   addToFavs=(recipe, nutritionInfo)=>{
-    const id = nutritionInfo.id
+  const id = nutritionInfo.id
     const url = nutritionInfo.image
     const name = nutritionInfo.title
     const ingredients = nutritionInfo.extendedIngredients.map(ingredient => {
@@ -93,7 +95,7 @@ class App extends React.Component {
       this.setState({
         myFavs: [...this.state.myFavs, recipe]
       })
-      
+    
       fetch('http://127.0.0.1:3000/recipe_posts', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -121,6 +123,7 @@ class App extends React.Component {
       })
       this.postToFavs(recipe)
     })
+    
   }
   
   postToFavs=(recipe)=>{
@@ -141,25 +144,25 @@ class App extends React.Component {
     fetch(`http://127.0.0.1:3000/recipe_posts`)
     .then(resp => resp.json())
     .then(myrecipes => {
-        this.setState({
-          myRecipes: myrecipes
+      const filteredRecipes = myrecipes.filter(recipe =>{
+        return !recipe.spoonKey
+      })
+      this.setState({
+          myRecipes: filteredRecipes
         }
       )
+      this.getMyFavs(myrecipes)
     })
-    this.getMyFavs()
   }
 
-  getMyFavs=()=>{
-    const theFavs = this.state.myRecipes.filter(recipe => {
+  getMyFavs=(myrecipes)=>{
+    const theFavs = myrecipes.filter(recipe => {
       return !!recipe.spoonKey
     })
     this.setState({
       myFavs: theFavs
     })
    }
-
-
-
 
   removeFromFavs=(recipe)=>{
     console.log("removing from favs")
@@ -168,6 +171,14 @@ class App extends React.Component {
     })
     this.setState({
       myFavs: updatedFavs
+    })
+    const id = recipe.id
+    fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
+      method: 'delete'
+    })
+    .then(() => {console.log("recipe removed")})
+    .catch(err => {
+      console.error(err)
     })
   }
 
@@ -214,7 +225,6 @@ class App extends React.Component {
 
 
   showRecipe=(recipe)=>{
-    console.log("in show recipe", recipe)
     this.setState({
       showMyRecipe: recipe
     })
@@ -239,6 +249,12 @@ class App extends React.Component {
                 resetIsSubmitted={this.resetIsSubmitted}
                 />
         <Switch> 
+          <Route path='/recipes/favorite/:id' render={() => <FavoriteShowPage recipe={this.state.showMyRecipe}
+                                                            addToFavs={this.addToFavs}
+                                                            removeFromFavs={this.removeFromFavs}
+                                                            myFavs={this.state.myFavs}
+                                                            deleteRecipe={this.deleteRecipe}
+                                                            /> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
@@ -261,7 +277,7 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
-                                                            /> } />
+                                                            /> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}
@@ -273,6 +289,7 @@ class App extends React.Component {
                                                         isSubmitted={this.state.isSubmitted}
                                                         /> } />
           <Route path='/calendar' render={() => <ScheduleMeal /> } />
+          <Route exact path='/' render={() => <Login /> } />  
         </Switch>
       </div>
     );

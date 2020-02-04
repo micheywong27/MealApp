@@ -241,6 +241,11 @@ class App extends React.Component {
     })
   }
 
+  addEvent = (e, setDate) => {
+    e.preventDefault()
+    console.log("in add event", setDate)
+  }
+
   render(){ 
     return (
       <div className="App">
@@ -288,7 +293,9 @@ class App extends React.Component {
                                                         onChange={this.onChange}
                                                         isSubmitted={this.state.isSubmitted}
                                                         /> } />
-          <Route path='/calendar' render={() => <ScheduleMeal /> } />
+          <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
+                                                
+                                                /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>
       </div>

@@ -14,17 +14,22 @@ const currDate = date+' '+time;
 class ScheduleMeal extends React.Component {
   
   state ={
-    defaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time
+    defaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time,
+    setDate: ''
   }
 
   changeDate = (e) => {
-    console.log(e.target)
+    console.log(e.target.value)
+    this.setState({
+      [e.target.name] : e.target.value
+    })
   }
 
+
+
   render() {
-    console.log(this.state.defaultValue)
-    return (
-      
+    console.log("set date is:", this.state.setDate)
+    return (  
       <div> 
         <h3>Today's date: {currDate}</h3>
         <form noValidate>
@@ -35,14 +40,16 @@ class ScheduleMeal extends React.Component {
             id="datetime-local"
             label="Schedule meal"
             type="datetime-local"
+            name="setDate"
             defaultValue={this.state.defaultValue}  
             onChange={e => this.changeDate(e)}
+
             InputLabelProps={{
                 shrink: true,
             }}
             />
             <br />
-            <button type="submit" onClick={() => {console.log()}}>Submit</button>
+            <button type="submit" onClick={(e) => {this.props.addEvent(e, this.state.setDate)}}>Submit</button>
         </form>
         <MyCalendar />
       </div>

@@ -28,7 +28,8 @@ class App extends React.Component {
     servingSize: '',
     isSubmitted: false,
     setDate: '',
-    recipeInputName: ''
+    recipeInputName: '',
+    events: []
   }
 
   componentDidMount(){

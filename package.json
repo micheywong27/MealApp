@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "contentful": "^7.13.1",
+    "material-ui-datetime-range-picker": "^1.0.0",
     "material-ui-datetimepicker": "^1.0.7",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",

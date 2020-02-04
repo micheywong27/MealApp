@@ -28,7 +28,8 @@ class App extends React.Component {
     servingSize: '',
     isSubmitted: false,
     setDate: '',
-    recipeInputName: ''
+    recipeInputName: '',
+    events: []
   }
 
   componentDidMount(){
@@ -167,7 +168,6 @@ class App extends React.Component {
    }
 
   removeFromFavs=(recipe)=>{
-    console.log("removing from favs")
     const updatedFavs = this.state.myFavs.filter(fav => {
         return fav !== recipe
     })
@@ -247,6 +247,7 @@ class App extends React.Component {
     e.preventDefault()
     const recipeName = this.state.recipeInputName
     const setDate = this.state.setDate
+    console.log(setDate)
     fetch('http://127.0.0.1:3000/create_events', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -255,7 +256,7 @@ class App extends React.Component {
             title: recipeName,
             allDay: false,
             start: setDate,
-            end: '2020-02-06T16:20',
+            end: '2020-02-04T15:20',
             postId: 1
         })
       })
@@ -273,12 +274,24 @@ class App extends React.Component {
     })
   }
 
+
+  getEvents=()=>{
+    fetch('http://127.0.0.1:3000/create_events')
+    .then(resp => resp.json())
+    .then(events =>{
+      this.setState({
+        events: events
+      })
+    })
+  }
+
   render(){ 
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
                 isSubmitted={this.state.isSubmitted}
                 resetIsSubmitted={this.resetIsSubmitted}
+                getEvents={this.getEvents}
                 />
         <Switch> 
           <Route path='/recipes/favorite/:id' render={() => <FavoriteShowPage recipe={this.state.showMyRecipe}
@@ -324,6 +337,8 @@ class App extends React.Component {
                                                 setInputValue={this.setInputValue}
                                                 setDate={this.state.setDate}
                                                 recipeInputName={this.state.recipeInputName}
+                                                getEvents={this.getEvents}
+                                                events={this.state.events}
                                                 /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

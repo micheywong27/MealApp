@@ -26,7 +26,9 @@ class App extends React.Component {
     showMyRecipe: [],
     cookTime: '',
     servingSize: '',
-    isSubmitted: false
+    isSubmitted: false,
+    setDate: '',
+    recipeInputName: ''
   }
 
   componentDidMount(){
@@ -241,9 +243,34 @@ class App extends React.Component {
     })
   }
 
-  addEvent = (e, setDate) => {
+  addEvent = (e) => {
     e.preventDefault()
-    console.log("in add event", setDate)
+    const recipeName = this.state.recipeInputName
+    const setDate = this.state.setDate
+    fetch('http://127.0.0.1:3000/create_events', {
+          method: 'POST',
+          headers:{ 'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify({
+            title: recipeName,
+            allDay: false,
+            start: setDate,
+            end: '2020-02-06T16:20',
+            postId: 1
+        })
+      })
+    .then(resp => resp.json())
+    .then(
+      this.setState({
+
+      })
+    )
+  }
+
+  setInputValue = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
   }
 
   render(){ 
@@ -294,7 +321,9 @@ class App extends React.Component {
                                                         isSubmitted={this.state.isSubmitted}
                                                         /> } />
           <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
-                                                
+                                                setInputValue={this.setInputValue}
+                                                setDate={this.state.setDate}
+                                                recipeInputName={this.state.recipeInputName}
                                                 /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

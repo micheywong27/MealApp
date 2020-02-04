@@ -12,29 +12,23 @@ const time = today.getHours() + ":" + timez ;
 const currDate = date+' '+time;
 
 class ScheduleMeal extends React.Component {
-  
   state ={
     defaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time,
-    setDate: ''
   }
-
-  changeDate = (e) => {
-    console.log(e.target.value)
-    this.setState({
-      [e.target.name] : e.target.value
-    })
-  }
-
-
 
   render() {
-    console.log("set date is:", this.state.setDate)
+    console.log("set date is:", this.props.setDate)
     return (  
       <div> 
         <h3>Today's date: {currDate}</h3>
         <form noValidate>
             <h3>Add recipe to calendar</h3>
-            <input type="text" placeholder="Recipe Name" name="recipe"/>
+            <input type="text" 
+                    placeholder="Recipe Name" 
+                    name="recipeInputName"
+                    value={this.props.recipeInputName}
+                    onChange={(e) => this.props.setInputValue(e)}
+                    />
             <br />
             <TextField
             id="datetime-local"
@@ -42,14 +36,14 @@ class ScheduleMeal extends React.Component {
             type="datetime-local"
             name="setDate"
             defaultValue={this.state.defaultValue}  
-            onChange={e => this.changeDate(e)}
+            onChange={e => this.props.setInputValue(e)}
 
             InputLabelProps={{
                 shrink: true,
             }}
             />
             <br />
-            <button type="submit" onClick={(e) => {this.props.addEvent(e, this.state.setDate)}}>Submit</button>
+            <button type="submit" onClick={(e) => {this.props.addEvent(e)}}>Submit</button>
         </form>
         <MyCalendar />
       </div>

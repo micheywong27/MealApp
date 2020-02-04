@@ -4,7 +4,6 @@ import MyCalendar from './MyCalendar';
 
 const today = new Date();
 const date = (today.getMonth()+1)+'/'+ today.getDate() + '/' + today.getFullYear();
-
 const month = today.getMonth() <= 10 ?  '0' + (today.getMonth()+1) : (today.getMonth()+1)
 const day = today.getDate() <= 10 ?  '0' + today.getDate() : today.getDate()
 const timez = today.getMinutes() <= 10 ?  '0' + today.getMinutes() : today.getMinutes()
@@ -17,7 +16,6 @@ class ScheduleMeal extends React.Component {
   }
 
   render() {
-    console.log("set date is:", this.props.setDate)
     return (  
       <div> 
         <h3>Today's date: {currDate}</h3>

@@ -5,9 +5,8 @@ class MyPosts extends React.Component{
     render(){
         let { recipe }= this.props;
         return(
-            //onClick go to recipe show page
             <div className="mypost" onClick={() => this.props.showRecipe(recipe)} >
-                 <Link to={{pathname:`/recipes/myposts/${recipe.id}`,
+                 <Link to={{pathname:`/recipes/posts/${recipe.id}`,
                         recipe: recipe
                         }}
                         className='link'>  

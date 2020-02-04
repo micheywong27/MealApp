@@ -2,20 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class RecipeShowPage extends React.Component{
-    
-    favFilter=(recipe)=>{
+    favFilter=(recipe, nutritionInfo)=>{
         if(this.props.myFavs.includes(recipe)){
             this.props.removeFromFavs(recipe)
         }
         else {
-            this.props.addToFavs(recipe)
+            this.props.addToFavs(recipe, nutritionInfo)
         }
     }
 
     render() {
         const img = this.props.nutritionInfo.image
         const favButton = this.props.myFavs.includes(this.props.recipe) ? "❤️" : "♡"
-
         return(
             <div className="recipe">
                 <img alt="recipeimg" className="recipeimg" src={img} />
@@ -32,10 +30,13 @@ class RecipeShowPage extends React.Component{
                     <h1>No ingredients</h1>
                 }
                 <br />
-                <button onClick={()=>{this.favFilter(this.props.recipe)}}>{favButton}</button>
+                <button onClick={()=>{this.favFilter(this.props.recipe, this.props.nutritionInfo)}}>{favButton}</button>
                 <Link to='/recipes'>
                 <button >Go back to recipes</button>
                 </Link>
+                <br/>
+                <a href="/#" className="previous round">&#8249;</a>
+                <a href="/#" className="next round">&#8250;</a>
             </div>
         )
     } 

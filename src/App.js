@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import FavoriteShowPage from './components/FavoriteShowPage';
+import Login from './components/Login'
+import MyPostsShowPage from './components/MyPostsShowPage';
 import Navbar from './components/Navbar';
 import RecipePosts from './containters/RecipePosts';
-import UserProfile from './containters/UserProfile';
 import RecipeForm from './components/RecipeForm';
-import ScheduleMeal from './components/ScheduleMeal';
 import RecipeShowPage from './components/RecipeShowPage';
-import MyPostsShowPage from './components/MyPostsShowPage';
+import ScheduleMeal from './components/ScheduleMeal';
+import UserProfile from './containters/UserProfile';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
@@ -21,7 +23,12 @@ class App extends React.Component {
     name: '',
     ingredients: '',
     instructions: '',
-    showMyRecipe: []
+    showMyRecipe: [],
+    cookTime: '',
+    servingSize: '',
+    isSubmitted: false,
+    setDate: '',
+    recipeInputName: ''
   }
 
   componentDidMount(){
@@ -75,14 +82,89 @@ class App extends React.Component {
     })
   }
 
-  addToFavs=(recipe)=>{
-    console.log("adding to favs")
-    if(!this.state.myFavs.includes(recipe)){
+  addToFavs=(recipe, nutritionInfo)=>{
+  const id = nutritionInfo.id
+    const url = nutritionInfo.image
+    const name = nutritionInfo.title
+    const ingredients = nutritionInfo.extendedIngredients.map(ingredient => {
+      return ingredient.name
+    })
+    const myingredients = ingredients.join(" ")
+    const instructions = nutritionInfo.instructions
+    const cookTime = nutritionInfo.cookingMinutes
+    const servingSize = nutritionInfo.servings 
+
       this.setState({
         myFavs: [...this.state.myFavs, recipe]
       })
-    }
+    
+      fetch('http://127.0.0.1:3000/recipe_posts', {
+          method: 'POST',
+          headers:{ 'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify({
+            url: url,
+            name: name, 
+            ingredients: myingredients, 
+            instructions: instructions,
+            cookTime: cookTime,
+            servingSize: servingSize,
+            spoonKey: id
+        })
+      })
+    .then(resp => resp.json())
+    .then((recipe) => {
+      this.setState({
+        url: '',
+        name: '',
+        ingredients: '',
+        instructions: '',
+        cookTime: '',
+        servingSize: '',
+        isSubmitted: true
+      })
+      this.postToFavs(recipe)
+    })
+    
   }
+  
+  postToFavs=(recipe)=>{
+    const newId = recipe.id
+    fetch('http://127.0.0.1:3000/favorites', {
+        method: 'POST',
+        headers:{ 'Content-Type': 'application/json',
+                  'Accept': 'application/json'},
+        body: JSON.stringify({
+          postId: newId
+        })
+      })
+    .then(resp => resp.json())
+  }
+
+  //everytime you click my profile, it will fetch the current list of my recipes/ my favs
+  getMyRecipes=()=>{
+    fetch(`http://127.0.0.1:3000/recipe_posts`)
+    .then(resp => resp.json())
+    .then(myrecipes => {
+      const filteredRecipes = myrecipes.filter(recipe =>{
+        return !recipe.spoonKey
+      })
+      this.setState({
+          myRecipes: filteredRecipes
+        }
+      )
+      this.getMyFavs(myrecipes)
+    })
+  }
+
+  getMyFavs=(myrecipes)=>{
+    const theFavs = myrecipes.filter(recipe => {
+      return !!recipe.spoonKey
+    })
+    this.setState({
+      myFavs: theFavs
+    })
+   }
 
   removeFromFavs=(recipe)=>{
     console.log("removing from favs")
@@ -92,6 +174,14 @@ class App extends React.Component {
     this.setState({
       myFavs: updatedFavs
     })
+    const id = recipe.id
+    fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
+      method: 'delete'
+    })
+    .then(() => {console.log("recipe removed")})
+    .catch(err => {
+      console.error(err)
+    })
   }
 
   onChange=(e)=>{
@@ -100,18 +190,19 @@ class App extends React.Component {
     })
   }
 
-  submitForm=(e, url, name,ingredients,instructions)=>{
+  submitForm=(e, url, name, ingredients, instructions, cookTime, servingSize)=>{
     e.preventDefault()
     fetch('http://127.0.0.1:3000/recipe_posts', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
                     'Accept': 'application/json'},
           body: JSON.stringify({
-            userId: 1,
             url: url,
             name: name, 
             ingredients: ingredients, 
-            instructions: instructions
+            instructions: instructions,
+            cookTime: cookTime,
+            servingSize: servingSize
         })
       })
     .then(resp => resp.json())
@@ -120,46 +211,83 @@ class App extends React.Component {
         url: '',
         name: '',
         ingredients: '',
-        instructions: ''
+        instructions: '',
+        cookTime: '',
+        servingSize: '',
+        isSubmitted: true
       })
     })
   }
 
-  //everytime you click my profile, it will fetch the current list of my recipes
-  getMyRecipes=()=>{
-    fetch(`http://127.0.0.1:3000/recipe_posts`)
-    .then(resp => resp.json())
-    .then(myrecipes => {
-        this.setState({
-          myRecipes: myrecipes
-        })
+  resetIsSubmitted=()=>{
+    this.setState({
+      isSubmitted: false
     })
-    }
+  }
 
-    showRecipe=(recipe)=>{
+
+  showRecipe=(recipe)=>{
+    this.setState({
+      showMyRecipe: recipe
+    })
+  }
+
+  deleteRecipe=(recipe)=>{
+    const id = recipe.id
+    fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
+      method: 'delete'
+    })
+    .then(() => {console.log("recipe removed")})
+    .catch(err => {
+      console.error(err)
+    })
+  }
+
+  addEvent = (e) => {
+    e.preventDefault()
+    const recipeName = this.state.recipeInputName
+    const setDate = this.state.setDate
+    fetch('http://127.0.0.1:3000/create_events', {
+          method: 'POST',
+          headers:{ 'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify({
+            title: recipeName,
+            allDay: false,
+            start: setDate,
+            end: '2020-02-06T16:20',
+            postId: 1
+        })
+      })
+    .then(resp => resp.json())
+    .then(
       this.setState({
-        showMyRecipe: recipe
-      })
-    }
 
-    deleteRecipe=(recipe)=>{
-      const id = recipe.id
-      fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
-        method: 'delete'
       })
-      .then(() => {console.log("recipe removed")})
-      .catch(err => {
-        console.error(err)
-      })
-    }
+    )
+  }
+
+  setInputValue = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
 
   render(){ 
-    console.log(this.state.url)
     return (
       <div className="App">
-        <Navbar getMyRecipes={this.getMyRecipes}/>
+        <Navbar getMyRecipes={this.getMyRecipes}
+                isSubmitted={this.state.isSubmitted}
+                resetIsSubmitted={this.resetIsSubmitted}
+                />
         <Switch> 
-          <Route path='/recipes/myposts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
+          <Route path='/recipes/favorite/:id' render={() => <FavoriteShowPage recipe={this.state.showMyRecipe}
+                                                            addToFavs={this.addToFavs}
+                                                            removeFromFavs={this.removeFromFavs}
+                                                            myFavs={this.state.myFavs}
+                                                            deleteRecipe={this.deleteRecipe}
+                                                            /> } />
+          <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
@@ -181,15 +309,23 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
-                                                            /> } />
+                                                            /> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}
                                                         ingredients={this.state.ingredients}
                                                         instructions={this.state.instructions}
+                                                        cookTime={this.state.cookTime}
+                                                        servingSize={this.state.servingSize}
                                                         onChange={this.onChange}
+                                                        isSubmitted={this.state.isSubmitted}
                                                         /> } />
-          <Route path='/calendar' render={() => <ScheduleMeal /> } />
+          <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
+                                                setInputValue={this.setInputValue}
+                                                setDate={this.state.setDate}
+                                                recipeInputName={this.state.recipeInputName}
+                                                /> } />
+          <Route exact path='/' render={() => <Login /> } />  
         </Switch>
       </div>
     );

@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class MyPostsShowPage extends React.Component{
+class FavoriteShowPage extends React.Component{
+    favFilter=(recipe, nutritionInfo)=>{
+        if(this.props.myFavs.includes(recipe)){
+            this.props.removeFromFavs(recipe)
+        }
+        else {
+            this.props.addToFavs(recipe, nutritionInfo)
+        }
+    }
 
     render() {
+        const favButton = this.props.myFavs.includes(this.props.recipe) ? "❤️" : "♡"
         return(
             <div className="recipe">
                 <img alt="recipeimg" className="recipeimg" src={this.props.recipe.url} />
@@ -12,7 +21,8 @@ class MyPostsShowPage extends React.Component{
                 <p>Serving size: {this.props.recipe.servingSize}</p>
                 <p>Ingredients: {this.props.recipe.ingredients} </p>
                 <p>Instructions: {this.props.recipe.instructions}</p>
-                <button onClick={()=>this.props.deleteRecipe(this.props.recipe)}> Delete recipe </button>
+                <br />
+                <button onClick={()=>{this.favFilter(this.props.recipe, this.props.nutritionInfo)}}>{favButton}</button>
                 <Link to='/recipes'>
                 <button>Go back to recipes</button>
                 </Link>
@@ -24,4 +34,4 @@ class MyPostsShowPage extends React.Component{
         )
     } 
 }
-export default MyPostsShowPage;
+export default FavoriteShowPage;

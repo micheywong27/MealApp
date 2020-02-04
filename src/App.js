@@ -28,7 +28,8 @@ class App extends React.Component {
     servingSize: '',
     isSubmitted: false,
     setDate: '',
-    recipeInputName: ''
+    recipeInputName: '',
+    events: []
   }
 
   componentDidMount(){
@@ -273,12 +274,24 @@ class App extends React.Component {
     })
   }
 
+
+  getEvents=()=>{
+    fetch('http://127.0.0.1:3000/create_events')
+    .then(resp => resp.json())
+    .then(events =>{
+      this.setState({
+        events: events
+      })
+    })
+  }
+
   render(){ 
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
                 isSubmitted={this.state.isSubmitted}
                 resetIsSubmitted={this.resetIsSubmitted}
+                getEvents={this.getEvents}
                 />
         <Switch> 
           <Route path='/recipes/favorite/:id' render={() => <FavoriteShowPage recipe={this.state.showMyRecipe}
@@ -324,6 +337,8 @@ class App extends React.Component {
                                                 setInputValue={this.setInputValue}
                                                 setDate={this.state.setDate}
                                                 recipeInputName={this.state.recipeInputName}
+                                                getEvents={this.getEvents}
+                                                events={this.state.events}
                                                 /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

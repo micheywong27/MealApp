@@ -18,24 +18,32 @@ class MyCalendar extends React.Component{
              start: new Date(2020, 1, 7, 8, 15), // 8.15 AM on 2nd
              end: new Date(2020, 1, 7, 10, 30) // 10.30 PM on 2nd
            }
-      ]
+      ],
+      event: []
     }
 
   render(){
+    const mappableEvents = this.props.events.map(event => {
+       event.start = new Date(event.start)
+       return event
+    })
+  
+    
     moment.locale("en-GB");
     //https://momentjs.com/timezone/
     // var dec = moment("2014-12-01T12:00:00Z");
-    // dec.tz('America/New_York').format('ha z'); 
-    
+    // dec.tz('America/New_York').format('ha z');   
     const localizer = momentLocalizer(moment);
     var today = new Date();
     var date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
-    console.log(today)
+
+    console.log("calendar events", mappableEvents)
+    
     return(
       <div>
       <Calendar
        localizer={localizer}
-       events={this.state.events}
+       events={mappableEvents}
        step={30} //diff b/w hrs (i.e. 30 min interval)
        timeslots={1} //amount of lines in each hr
        defaultView="week"

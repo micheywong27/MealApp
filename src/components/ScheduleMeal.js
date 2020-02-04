@@ -45,7 +45,8 @@ class ScheduleMeal extends React.Component {
             <br />
             <button type="submit" onClick={(e) => {this.props.addEvent(e)}}>Submit</button>
         </form>
-        <MyCalendar />
+        <MyCalendar getEvents={this.props.getEvents}
+                    events={this.props.events}/>
       </div>
     )
   }

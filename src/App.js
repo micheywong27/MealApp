@@ -260,7 +260,6 @@ class App extends React.Component {
 
   //GET THE POST ID 
   addEvent = (e) => {
-    e.preventDefault()
     const recipeName = this.state.recipeInputName
     const startTime = this.state.startTime
     const endTime = this.state.endTime

@@ -5,7 +5,7 @@ class Navbar extends React.Component{
     render(){
         return(
             <div className='navbar'>
-                <h1 className="logo">App Name</h1>
+                <h1 className="logo">Mealed 🔪</h1>
                 <Link to='/recipes' className='link'><div>Recipes</div></Link>
                 <Link to='/form' className='link' ><div>Add a recipe</div></Link>
                 <Link to='/profile' className='link' ><div>My Profile</div></Link>

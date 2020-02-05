@@ -64,7 +64,7 @@ a:hover {
 }
 
 .form {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
 }
 
@@ -104,27 +104,27 @@ padding:12px;
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 35px;
   color: white
 }
 
 .navbar {
   display: flex;
-  font-family: cursive;
+  font-family: "Lucida Console";
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 5px 20px;
   background: maroon;
 }
 
 .profile {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
 }
 
 .heading {
 	font-size: 30px;
-	padding: 16px 0;
+	padding: 16px;
 	color: white;
   text-align: center;
 }
@@ -137,6 +137,23 @@ padding:12px;
 
 .search-label {
 	position: relative;
+}
+
+/*each box on the calendar */
+.rbc-time-slot{
+  min-height: 8px;
+}
+
+/* each event box */
+.rbc-event {
+  height:auto; 
+  border-radius: 20px 20px 0px 0px;
+}
+
+/* this shows the weeks date i.e. Feb 02-08 */
+.rbc-toolbar-label {
+  font-family: "Lucida Console";
+  color: black;
 }
 
 .container input {
@@ -159,7 +176,7 @@ padding:12px;
 }
 
 .recipe {
-  font-family: cursive;
+  font-family: "Lucida Console";
   margin: 30px;
   background-color: #ffffff;
   border: 1px solid black;
@@ -171,8 +188,14 @@ padding:12px;
 }
 
 .recipes {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
+}
+
+.schedule-meal-form {
+  font-family: "Lucida Console";
+  color: white;
+  padding: 10px;
 }
 
 .search-icon {

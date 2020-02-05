@@ -8,7 +8,6 @@ const month = today.getMonth() <= 10 ?  '0' + (today.getMonth()+1) : (today.getM
 const day = today.getDate() <= 10 ?  '0' + today.getDate() : today.getDate()
 const timez = today.getMinutes() <= 10 ?  '0' + today.getMinutes() : today.getMinutes()
 const time = today.getHours() + ":" + timez ;
-const currDate = date+' '+time;
 
 class ScheduleMeal extends React.Component {
   state ={
@@ -18,15 +17,14 @@ class ScheduleMeal extends React.Component {
   render() {
     return (  
       <div> 
-        <h3>Today's date: {currDate}</h3>
-        <form noValidate>
+        <h3 className="schedule-meal-form">Today is {date}</h3>
+        <form noValidate className="schedule-meal-form">
             <h3>Add recipe to calendar</h3>
             <input type="text" 
                     placeholder="Recipe Name" 
                     name="recipeInputName"
                     value={this.props.recipeInputName}
                     onChange={(e) => this.props.setInputValue(e)}
-
                     />
             <br />
             <TextField

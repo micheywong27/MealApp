@@ -25,14 +25,6 @@ class MyCalendar extends React.Component{
     const date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
     const allViews = Object.keys(Views).map(k => Views[k])
 
-    //styling for inside the calendar
-    const ColoredDateCellWrapper = ({ children }) =>
-      React.cloneElement(React.Children.only(children), {
-        style: {
-        
-        },
-    })
-
     return(
       <div>
       <Calendar
@@ -50,29 +42,25 @@ class MyCalendar extends React.Component{
          this.setState({ selectedDate: date });
        }}
        Date={date} //calendar week rendered is determined by the current date
-       components={{
-        timeSlotWrapper: ColoredDateCellWrapper,
-       }}
   
-     //event styling
-     eventPropGetter={() => {
-         let newStyle = {
-             backgroundColor: "maroon",
-             color: 'white',
-             borderRadius: "15px", //rounds border
-             borderColor:"white",
-             borderWidth: "2px", //how thick the border is
-             fontFamily: "cursive",
-             fontSize: "20px",
-             textAlign: "center"
-         };
-          return {
-             className: "",
-             style: newStyle
-          };
-         }}
+      event styling
+      eventPropGetter={() => {
+        let newStyle = {
+           backgroundColor: "maroon",
+           color: 'white',
+           borderColor:"white",
+           borderWidth: "2px", //how thick the border is
+           fontFamily: "Lucida Console",
+           fontSize: "18px",
+           textAlign: "center"
+        };
+        return {
+          className: "",
+          style: newStyle
+        };
+      }}
       />
-   </div>
+    </div>
     )
   }
 }

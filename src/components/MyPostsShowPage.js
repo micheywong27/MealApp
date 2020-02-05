@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 class MyPostsShowPage extends React.Component{
     render() {
         let { recipe } = this.props;
-        console.log(recipe)
         return(
             <div className="recipe">
                 <img alt="recipeimg" className="recipeimg" src={recipe.url} />
@@ -15,7 +14,7 @@ class MyPostsShowPage extends React.Component{
                 <p>Instructions: {recipe.instructions}</p>
                 <button onClick={()=>this.props.deleteRecipe(recipe)}> Delete recipe </button>
                 <Link to='/calendar' className='link'>
-                <button onClick={() => {this.props.addRecipeToCalendar(recipe.name)}} >Add recipe to your calendar</button>
+                <button onClick={() => {this.props.addRecipeToCalendar(recipe.name, recipe)}} >Add recipe to your calendar</button>
                 </Link>
                 <Link to='/recipes'>
                 <button>Go back to recipes</button>

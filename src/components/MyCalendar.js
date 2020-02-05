@@ -1,13 +1,18 @@
 import React from 'react';
 import moment from 'moment'
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Views, Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 class MyCalendar extends React.Component{
-   
+
+  
+  selectedEvent=(event)=>{
+    console.log("heeeeeyyy", event)
+    
+    
+  }
 
   render(){
-
     const mappableEvents = this.props.events.map(event => {
        event.start = new Date(event.start)
        event.end = new Date(event.end)
@@ -15,13 +20,19 @@ class MyCalendar extends React.Component{
     })
     
     moment.locale("en-GB");
-    //https://momentjs.com/timezone/
-    // var dec = moment("2014-12-01T12:00:00Z");
-    // dec.tz('America/New_York').format('ha z');   
     const localizer = momentLocalizer(moment);
-    var today = new Date();
-    var date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
-    
+    const today = new Date();
+    const date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
+    const allViews = Object.keys(Views).map(k => Views[k])
+
+    //styling for inside the calendar
+    const ColoredDateCellWrapper = ({ children }) =>
+      React.cloneElement(React.Children.only(children), {
+        style: {
+        
+        },
+    })
+
     return(
       <div>
       <Calendar
@@ -30,14 +41,19 @@ class MyCalendar extends React.Component{
        step={30} //diff b/w hrs (i.e. 30 min interval)
        timeslots={1} //amount of lines in each hr
        defaultView="week"
-       views={["week"]}
+       views={allViews}
+       onSelectEvent={this.selectedEvent}
+       showMultiDayTimes
        min={new Date(2020, 2, 1, 8, 0)} // Calendar starts at 8.00 AM
        max={new Date(2020, 2, 1, 20, 0)} // Calendar goes to max time of 8.00 PM
        onNavigate={date => {
          this.setState({ selectedDate: date });
        }}
        Date={date} //calendar week rendered is determined by the current date
-     
+       components={{
+        timeSlotWrapper: ColoredDateCellWrapper,
+       }}
+  
      //event styling
      eventPropGetter={() => {
          let newStyle = {

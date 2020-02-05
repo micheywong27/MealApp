@@ -31,6 +31,7 @@ class App extends React.Component {
     endTime: '',
     recipeInputName: '',
     events: [],
+    recipePostId: ''
   }
 
   componentDidMount(){
@@ -69,7 +70,6 @@ class App extends React.Component {
     })
   }
 
-  //search bar input will GET fetch to show results based on the search term
   searchResults=(searched)=>{
     this.setState({
       searchTerm: searched
@@ -104,6 +104,7 @@ class App extends React.Component {
     this.setState({
       myFavs: [...this.state.myFavs, recipe]
     })    
+
     fetch('http://127.0.0.1:3000/recipe_posts', {
       method: 'POST',
       headers:{ 'Content-Type': 'application/json',
@@ -240,7 +241,6 @@ class App extends React.Component {
     })
   }
 
-
   showRecipe=(recipe)=>{
     this.setState({
       showMyRecipe: recipe
@@ -258,11 +258,13 @@ class App extends React.Component {
     })
   }
 
+  //GET THE POST ID 
   addEvent = (e) => {
     e.preventDefault()
     const recipeName = this.state.recipeInputName
     const startTime = this.state.startTime
     const endTime = this.state.endTime
+    const postId = this.state.recipePostId
     fetch('http://127.0.0.1:3000/create_events', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -272,7 +274,7 @@ class App extends React.Component {
             allDay: false,
             start: startTime,
             end: endTime,
-            postId: 1
+            postId: postId
         })
       })
     .then(resp => resp.json())
@@ -301,11 +303,12 @@ class App extends React.Component {
     })
   }
 
-    addRecipeToCalendar=(recipe)=>{
-      this.setState({
-        recipeInputName: recipe
-      })
-    }
+  addRecipeToCalendar=(recipeName, recipe)=>{
+    this.setState({
+      recipeInputName: recipeName,
+      recipePostId: recipe.id
+    })
+  }
 
   render(){ 
     return (
@@ -321,35 +324,29 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}
-                                                            /> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}
-                                                            /> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
-                                                            
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}
-                                                            /> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
           <Route path='/recipes' render={() => <RecipePosts recipes={this.state.recipes}
                                                             searchResults={this.searchResults}
-                                                            fetchRecipe={this.fetchRecipe} 
-                                                            />}  />
+                                                            fetchRecipe={this.fetchRecipe} />}  />
           <Route path='/profile' render={() => <UserProfile myFavs={this.state.myFavs}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}
-                                                            /> } />                                                
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}
@@ -358,16 +355,15 @@ class App extends React.Component {
                                                         cookTime={this.state.cookTime}
                                                         servingSize={this.state.servingSize}
                                                         onChange={this.onChange}
-                                                        isSubmitted={this.state.isSubmitted}
-                                                        /> } />
+                                                        isSubmitted={this.state.isSubmitted}/> } />
           <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
                                                 setInputValue={this.setInputValue}
                                                 startTime={this.state.startTime}
                                                 endTime = {this.state.endTime}
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
-                                                events={this.state.events}
-                                                /> } />
+                                                events={this.state.events}/> } 
+                                                />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>
       </div>

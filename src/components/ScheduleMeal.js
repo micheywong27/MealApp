@@ -56,6 +56,7 @@ class ScheduleMeal extends React.Component {
         </form>
         <MyCalendar getEvents={this.props.getEvents}
                     events={this.props.events}
+                    
                     />
       </div>
     )

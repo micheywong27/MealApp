@@ -12,17 +12,21 @@ class FavoriteShowPage extends React.Component{
     }
 
     render() {
-        const favButton = this.props.myFavs.includes(this.props.recipe) ? "❤️" : "♡"
+        let { recipe } = this.props;
+        const favButton = this.props.myFavs.includes(recipe) ? "❤️" : "♡"
         return(
             <div className="recipe">
-                <img alt="recipeimg" className="recipeimg" src={this.props.recipe.url} />
-                <h1>{this.props.recipe.name}</h1>
-                <p>Ready in: {this.props.recipe.cookTime} minutes</p>
-                <p>Serving size: {this.props.recipe.servingSize}</p>
-                <p>Ingredients: {this.props.recipe.ingredients} </p>
-                <p>Instructions: {this.props.recipe.instructions}</p>
+                <img alt="recipeimg" className="recipeimg" src={recipe.url} />
+                <h1>{recipe.name}</h1>
+                <p>Ready in: {recipe.cookTime} minutes</p>
+                <p>Serving size: {recipe.servingSize}</p>
+                <p>Ingredients: {recipe.ingredients} </p>
+                <p>Instructions: {recipe.instructions}</p>
                 <br />
-                <button onClick={()=>{this.favFilter(this.props.recipe, this.props.nutritionInfo)}}>{favButton}</button>
+                <button onClick={()=>{this.favFilter(recipe, this.props.nutritionInfo)}}>{favButton}</button>
+                <Link to='/calendar' className='link'>
+                <button onClick={() => {this.props.addRecipeToCalendar(recipe.name)}} >Add recipe to your calendar</button>
+                </Link>
                 <Link to='/recipes'>
                 <button>Go back to recipes</button>
                 </Link>

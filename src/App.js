@@ -31,7 +31,6 @@ class App extends React.Component {
     endTime: '',
     recipeInputName: '',
     events: [],
-    recipeEvent: []
   }
 
   componentDidMount(){
@@ -304,7 +303,7 @@ class App extends React.Component {
 
     addRecipeToCalendar=(recipe)=>{
       this.setState({
-        recipeInputName: recipe.title
+        recipeInputName: recipe
       })
     }
 
@@ -322,19 +321,21 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
                                                             /> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
                                                             /> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
-                                                            recipeEvent={this.state.recipeEvent}
+                                                            
                                                             addRecipeToCalendar={this.addRecipeToCalendar}
                                                             /> } />
           <Route path='/recipes' render={() => <RecipePosts recipes={this.state.recipes}
@@ -347,6 +348,7 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
                                                             /> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
@@ -365,7 +367,6 @@ class App extends React.Component {
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
                                                 events={this.state.events}
-                                                recipeEvent={this.state.recipeEvent}
                                                 /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

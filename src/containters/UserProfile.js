@@ -15,8 +15,7 @@ class UserProfile extends React.Component{
                         return <MyPosts recipe={recipe}
                                         key={recipe.id}
                                         nutritionInfo={this.props.nutritionInfo}
-                                        showRecipe={this.props.showRecipe}
-                                        />
+                                        showRecipe={this.props.showRecipe}/>
                     })
                     :
                     <p>You haven't posted any recipes</p>

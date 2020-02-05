@@ -11,9 +11,6 @@ class RecipeShowPage extends React.Component{
         }
     }
 
-    
-
-
     render() {
         let { recipe } = this.props;
         const img = this.props.nutritionInfo.image
@@ -36,7 +33,7 @@ class RecipeShowPage extends React.Component{
                 <br />
                 <button onClick={()=>{this.favFilter(recipe, this.props.nutritionInfo)}}>{favButton}</button>
                 <Link to='/calendar' className='link'>
-                <button onClick={() => {this.props.addRecipeToCalendar(recipe)}} >Add recipe to your calendar</button>
+                <button onClick={() => {this.props.addRecipeToCalendar(recipe.title)}} >Add recipe to your calendar</button>
                 </Link>
                 <Link to='/recipes'>
                 <button >Go back to recipes</button>

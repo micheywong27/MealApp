@@ -13,7 +13,6 @@ class MyCalendar extends React.Component{
        event.end = new Date(event.end)
        return event
     })
-  
     
     moment.locale("en-GB");
     //https://momentjs.com/timezone/
@@ -22,8 +21,6 @@ class MyCalendar extends React.Component{
     const localizer = momentLocalizer(moment);
     var today = new Date();
     var date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
-
-    console.log("calendar events", mappableEvents)
     
     return(
       <div>

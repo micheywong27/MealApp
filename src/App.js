@@ -30,7 +30,8 @@ class App extends React.Component {
     startTime: '',
     endTime: '',
     recipeInputName: '',
-    events: []
+    events: [],
+    recipeEvent: []
   }
 
   componentDidMount(){
@@ -47,9 +48,11 @@ class App extends React.Component {
     .catch(error => {
       console.log('Error fetching & parsing data', error);
     })
+    this.resetIsSubmitted()
+    this.getMyRecipes()
+    this.getEvents()
   }
 
-  //GET fetch to recieve nutrition info on specific recipe I click on
   fetchRecipe=(recipe)=>{
     var key = process.env.REACT_APP_API_KEY;
     var id = recipe.id
@@ -61,6 +64,9 @@ class App extends React.Component {
         recipe: recipe,
         nutritionInfo: data
       })
+    })
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
     })
   }
 
@@ -85,7 +91,7 @@ class App extends React.Component {
   }
 
   addToFavs=(recipe, nutritionInfo)=>{
-  const id = nutritionInfo.id
+    const id = nutritionInfo.id
     const url = nutritionInfo.image
     const name = nutritionInfo.title
     const ingredients = nutritionInfo.extendedIngredients.map(ingredient => {
@@ -96,24 +102,23 @@ class App extends React.Component {
     const cookTime = nutritionInfo.cookingMinutes
     const servingSize = nutritionInfo.servings 
 
-      this.setState({
-        myFavs: [...this.state.myFavs, recipe]
+    this.setState({
+      myFavs: [...this.state.myFavs, recipe]
+    })    
+    fetch('http://127.0.0.1:3000/recipe_posts', {
+      method: 'POST',
+      headers:{ 'Content-Type': 'application/json',
+                'Accept': 'application/json'},
+      body: JSON.stringify({
+          url: url,
+          name: name, 
+          ingredients: myingredients, 
+          instructions: instructions,
+           cookTime: cookTime,
+          servingSize: servingSize,
+          spoonKey: id
       })
-    
-      fetch('http://127.0.0.1:3000/recipe_posts', {
-          method: 'POST',
-          headers:{ 'Content-Type': 'application/json',
-                    'Accept': 'application/json'},
-          body: JSON.stringify({
-            url: url,
-            name: name, 
-            ingredients: myingredients, 
-            instructions: instructions,
-            cookTime: cookTime,
-            servingSize: servingSize,
-            spoonKey: id
-        })
-      })
+    })
     .then(resp => resp.json())
     .then((recipe) => {
       this.setState({
@@ -127,7 +132,9 @@ class App extends React.Component {
       })
       this.postToFavs(recipe)
     })
-    
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
+    })
   }
   
   postToFavs=(recipe)=>{
@@ -141,9 +148,11 @@ class App extends React.Component {
         })
       })
     .then(resp => resp.json())
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
+    })
   }
 
-  //everytime you click my profile, it will fetch the current list of my recipes/ my favs
   getMyRecipes=()=>{
     fetch(`http://127.0.0.1:3000/recipe_posts`)
     .then(resp => resp.json())
@@ -156,6 +165,9 @@ class App extends React.Component {
         }
       )
       this.getMyFavs(myrecipes)
+    })
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
     })
   }
 
@@ -180,8 +192,8 @@ class App extends React.Component {
       method: 'delete'
     })
     .then(() => {console.log("recipe removed")})
-    .catch(err => {
-      console.error(err)
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
     })
   }
 
@@ -218,6 +230,9 @@ class App extends React.Component {
         isSubmitted: true
       })
     })
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
+    })
   }
 
   resetIsSubmitted=()=>{
@@ -238,9 +253,9 @@ class App extends React.Component {
     fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
       method: 'delete'
     })
-    .then(() => {console.log("recipe removed")})
-    .catch(err => {
-      console.error(err)
+    .then(() => {console.log("Recipe has been removed")})
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
     })
   }
 
@@ -249,7 +264,6 @@ class App extends React.Component {
     const recipeName = this.state.recipeInputName
     const startTime = this.state.startTime
     const endTime = this.state.endTime
-    console.log("WERE IN START TIME", startTime)
     fetch('http://127.0.0.1:3000/create_events', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -264,6 +278,9 @@ class App extends React.Component {
       })
     .then(resp => resp.json())
     .then(event => console.log(event))
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
+    })
   }
 
   setInputValue = (e) => {
@@ -271,7 +288,6 @@ class App extends React.Component {
       [e.target.name] : e.target.value
     })
   }
-
 
   getEvents=()=>{
     fetch('http://127.0.0.1:3000/create_events')
@@ -281,7 +297,16 @@ class App extends React.Component {
         events: events
       })
     })
+    .catch(error => {
+      console.log('Error fetching & parsing data', error);
+    })
   }
+
+    addRecipeToCalendar=(recipe)=>{
+      this.setState({
+        recipeInputName: recipe.title
+      })
+    }
 
   render(){ 
     return (
@@ -309,6 +334,8 @@ class App extends React.Component {
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
+                                                            recipeEvent={this.state.recipeEvent}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
                                                             /> } />
           <Route path='/recipes' render={() => <RecipePosts recipes={this.state.recipes}
                                                             searchResults={this.searchResults}
@@ -338,6 +365,7 @@ class App extends React.Component {
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
                                                 events={this.state.events}
+                                                recipeEvent={this.state.recipeEvent}
                                                 /> } />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

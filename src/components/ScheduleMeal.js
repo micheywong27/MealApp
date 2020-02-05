@@ -15,7 +15,9 @@ class ScheduleMeal extends React.Component {
     defaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time,
   }
 
+
   render() {
+    console.log("hereee",this.props.recipeEvent)
     return (  
       <div> 
         <h3>Today's date: {currDate}</h3>
@@ -26,6 +28,7 @@ class ScheduleMeal extends React.Component {
                     name="recipeInputName"
                     value={this.props.recipeInputName}
                     onChange={(e) => this.props.setInputValue(e)}
+                    
                     />
             <br />
             <TextField
@@ -54,7 +57,8 @@ class ScheduleMeal extends React.Component {
             <button type="submit" onClick={(e) => {this.props.addEvent(e)}}>Submit</button>
         </form>
         <MyCalendar getEvents={this.props.getEvents}
-                    events={this.props.events}/>
+                    events={this.props.events}
+                    />
       </div>
     )
   }

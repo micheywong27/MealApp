@@ -5,12 +5,14 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 class MyCalendar extends React.Component{
 
-  
+  //Callback fired when a calendar event is selected.
+    //(event: Object, e: SyntheticEvent) => any
   selectedEvent=(event)=>{
     console.log("heeeeeyyy", event)
     
     
   }
+
 
   render(){
     const mappableEvents = this.props.events.map(event => {

@@ -21,7 +21,7 @@ class RecipeShowPage extends React.Component{
                 <h1>{recipe.title}</h1>
                 <p>Ready in: {recipe.readyInMinutes} minutes</p>
                 <p>Serving size: {recipe.servings}</p>
-                <p>{this.props.nutritionInfo.instructions}</p>
+                <p>How to make: {this.props.nutritionInfo.instructions}</p>
                 <p>Ingredients: </p>
                 {this.props.nutritionInfo.extendedIngredients ? 
                     this.props.nutritionInfo.extendedIngredients.map(ingredient =>{

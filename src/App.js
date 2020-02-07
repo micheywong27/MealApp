@@ -27,6 +27,7 @@ class App extends React.Component {
     cookTime: '',
     servingSize: '',
     isSubmitted: false,
+    isDeleted: false,
     startTime: '',
     endTime: '',
     recipeInputName: '',
@@ -161,7 +162,8 @@ class App extends React.Component {
         return !recipe.spoonKey
       })
       this.setState({
-          myRecipes: filteredRecipes
+          myRecipes: filteredRecipes,
+          isDeleted: false
         }
       )
       this.getMyFavs(myrecipes)
@@ -219,19 +221,22 @@ class App extends React.Component {
         })
       })
     .then(resp => resp.json())
-    .then( () => {
+    .then((recipe) => {
       this.setState({
-        url: '',
-        name: '',
-        ingredients: '',
-        instructions: '',
-        cookTime: '',
-        servingSize: '',
-        isSubmitted: true
+        myRecipes: [...this.state.myRecipes,recipe]
       })
     })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
+    })
+    this.setState({
+      url: '',
+      name: '',
+      ingredients: '',
+      instructions: '',
+      cookTime: '',
+      servingSize: '',
+      isSubmitted: true
     })
   }
 
@@ -252,13 +257,27 @@ class App extends React.Component {
     fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
       method: 'delete'
     })
-    .then(() => {console.log("Recipe has been removed")})
+    .then(() => {
+      const updatedRecipes = this.state.myRecipes.filter(r => {
+        return r !== recipe 
+      })
+      this.setState({
+        isDeleted: true,
+        myRecipes: updatedRecipes     
+      })
+    })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
     })
   }
 
-  //GET THE POST ID 
+  isDeletedRefresh=()=>{
+    console.log("resentting isDeleted")
+    this.setState({
+      isDeleted: false
+    })
+  }
+
   addEvent = (e) => {
     const recipeName = this.state.recipeInputName
     const startTime = this.state.startTime
@@ -310,6 +329,7 @@ class App extends React.Component {
   }
 
   render(){ 
+    console.log(this.state.isDeleted)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
@@ -329,7 +349,10 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            isDeleted={this.state.isDeleted}
+                                                            isDeletedRefresh = {this.isDeletedRefresh}
+                                                            /> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}

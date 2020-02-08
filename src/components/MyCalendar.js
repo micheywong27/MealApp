@@ -7,11 +7,9 @@ class MyCalendar extends React.Component{
 
   //Callback fired when a calendar event is selected.
     //(event: Object, e: SyntheticEvent) => any
-  selectedEvent=(event)=>{
-    console.log("heeeeeyyy", event)
-    
-    
-  }
+  // selectedEvent=(event)=>{
+  //   this.props.autofillTime(event)
+  // }
 
 
   render(){
@@ -27,8 +25,9 @@ class MyCalendar extends React.Component{
     const date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
     const allViews = Object.keys(Views).map(k => Views[k])
 
+    
     return(
-      <div>
+      <div> 
       <Calendar
        localizer={localizer}
        events={mappableEvents}
@@ -36,7 +35,7 @@ class MyCalendar extends React.Component{
        timeslots={1} //amount of lines in each hr
        defaultView="week"
        views={allViews}
-       onSelectEvent={this.selectedEvent}
+       onSelectEvent={this.props.togglePopup}
        showMultiDayTimes
        min={new Date(2020, 2, 1, 8, 0)} // Calendar starts at 8.00 AM
        max={new Date(2020, 2, 1, 20, 0)} // Calendar goes to max time of 8.00 PM

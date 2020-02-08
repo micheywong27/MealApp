@@ -5,7 +5,7 @@ class Navbar extends React.Component{
     render(){
         return(
             <div className='navbar'>
-                <h1 className="logo">Mealed 🔪</h1>
+                <h1 className="logo">Mealed <span aria-labelledby="knife" role="img">🔪</span></h1>
                 <Link to='/recipes' className='link'><div>Recipes</div></Link>
                 <Link to='/form' className='link' onClick={() => this.props.resetIsSubmitted()}><div>Add a recipe</div></Link>
                 <Link to='/profile' className='link' onClick={() => this.props.getMyRecipes()}><div>My Profile</div></Link>

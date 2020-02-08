@@ -10,7 +10,7 @@ class MyFavorites extends React.Component{
                         recipe: recipe
                         }}
                         className='link'>  
-                <h2>♦ {recipe.name}</h2>
+                <h2>♦ {recipe.name} </h2>
                 </Link>
             </div>
         )

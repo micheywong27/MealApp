@@ -32,8 +32,18 @@ class App extends React.Component {
     endTime: '',
     recipeInputName: '',
     events: [],
-    recipePostId: ''
+    recipePostId: '',
+    showPopup: false
   }
+
+  togglePopup=(event)=>{ 
+    console.log("in toggle popup to make popup appear", event) 
+    this.setState({  
+         showPopup: !this.state.showPopup,
+         recipeInputName: event.title
+    }) 
+
+  }  
 
   componentDidMount(){
     var key = process.env.REACT_APP_API_KEY;
@@ -296,7 +306,11 @@ class App extends React.Component {
         })
       })
     .then(resp => resp.json())
-    .then(event => console.log(event))
+    .then(() => {
+      this.setState({
+        showPopup: false
+      })
+    })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
     })
@@ -328,8 +342,18 @@ class App extends React.Component {
     })
   }
 
+  //OnClick of event, autofills form with this events title (doesnt bring you back to top?)
+  //other options are to click on event and have popup note with option to edit or delete event
+    //how to autofill times?????
+  autoFillEvent=(event)=>{
+    console.log("im inside auto fill", event)
+    this.setState({
+      recipeInputName: event.title
+    })
+  }
+
   render(){ 
-    console.log(this.state.isDeleted)
+
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
@@ -384,7 +408,10 @@ class App extends React.Component {
                                                 endTime = {this.state.endTime}
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
-                                                events={this.state.events}/> } 
+                                                events={this.state.events}
+                                                autoFillEvent={this.autoFillEvent}
+                                                togglePopup={this.togglePopup}
+                                                showPopup={this.state.showPopup}/> } 
                                                 />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

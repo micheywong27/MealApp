@@ -13,6 +13,7 @@ class FavoriteShowPage extends React.Component{
 
     render() {
         let { recipe } = this.props;
+        //const favButton = this.props.myFavs.includes(recipe) ? "Saved for later ✔️" : "Save for later"
         const favButton = this.props.myFavs.includes(recipe) ? "❤️" : "♡"
         return(
             <div className="recipe">
@@ -27,8 +28,8 @@ class FavoriteShowPage extends React.Component{
                 <Link to='/calendar' className='link'>
                 <button onClick={() => {this.props.addRecipeToCalendar(recipe.name, recipe)}} >Add recipe to your calendar</button>
                 </Link>
-                <Link to='/recipes'>
-                <button>Go back to recipes</button>
+                <Link to='/profile'>
+                <button>Go back to profile</button>
                 </Link>
                 <br />
                 <a href="/#" className="previous round">&#8249;</a>

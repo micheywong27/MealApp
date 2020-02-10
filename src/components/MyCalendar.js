@@ -34,21 +34,6 @@ class MyCalendar extends React.Component{
           this.setState({ selectedDate: date });
         }}
         Date={date} //calendar week rendered is determined by the current date
-        event styling
-        eventPropGetter={() => {
-          let newStyle = {
-            backgroundColor: "maroon",
-            color: 'white',
-            borderColor:"white",
-            borderWidth: "2px", //how thick the border is
-            fontFamily: "Lucida Console",
-            textAlign: "center"
-          };
-          return {
-            className: "",
-            style: newStyle
-          };
-        }}
       />
     </div>
     )

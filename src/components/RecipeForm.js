@@ -10,37 +10,43 @@ class RecipeForm extends React.Component{
                 <form onSubmit={(e) => this.props.submitForm(e, url, name, ingredients, instructions, cookTime, servingSize)}>
                     <div className="add-my-recipe-form"> 
                         <h1>Tell us about your recipe!</h1>
-                        <input type="text" 
+                        <input className="form-input"
+                                type="text" 
                                 name="url"
                                 placeholder="Insert image URL" 
                                 value={url} 
                                 onChange={e =>this.props.onChange(e)}/>
                         <br />
-                        <input type='text' 
+                        <input className="form-input"
+                                    type='text' 
                                     placeholder='Name'
                                     name="name"
                                     value={name}
                                     onChange={(e) => this.props.onChange(e)} />
                         <br />
-                        <input type='text' 
+                        <input className="form-input"
+                                    type='text' 
                                     placeholder='Cook time'
                                     name="cookTime"
                                     value={cookTime}
                                     onChange={(e) => this.props.onChange(e)} />
                         <br />
-                        <input type='text' 
+                        <input className="form-input"
+                                type='text' 
                                 placeholder='Serving size' 
                                 name="servingSize"
                                 value={servingSize}
                                 onChange={(e) => this.props.onChange(e)}/>
                         <br />
-                        <input type='text' 
+                        <input className="form-input"
+                                type='text' 
                                 placeholder='Ingredients'
                                 name="ingredients"
                                 value={ingredients}
                                 onChange={(e) => this.props.onChange(e)} />
                         <br />
-                        <textarea type='text' 
+                        <textarea className="form-input"
+                                    type='text' 
                                     placeholder='Instructions'
                                     name="instructions"
                                     value={instructions}

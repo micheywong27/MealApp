@@ -2,7 +2,6 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import MyCalendar from './MyCalendar';
 import Popup from './Popup';
-import FormPostMessage from './FormPostMessage';
 
 const today = new Date();
 const date = (today.getMonth()+1)+'/'+ today.getDate() + '/' + today.getFullYear();

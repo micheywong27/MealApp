@@ -6,7 +6,21 @@
   background-image: url("https://i5.walmartimages.com/asr/fa7379a8-ce94-4d68-88ea-7a1225de0b66_1.f40b99d05e47121a273df5250dadb121.jpeg") ;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  position: fixed;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+}
+
+#root {
+  min-width: 100%;
+  min-height: 100%;
 }
 
 a {
@@ -21,13 +35,13 @@ a:hover {
 }
 
 .previous {
-  background-color: maroon;
-  color: white;
+  background-color: rgb(236, 197, 126);
+  color: black;
 }
 
 .next {
-  background-color: maroon;
-  color: white;
+  background-color: rgb(236, 225, 126);
+  color: black;
 }
 
 .round {
@@ -112,7 +126,7 @@ padding:12px;
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  background: maroon;
+  background: rgb(151, 101, 78);
 }
 
 .profile {
@@ -144,9 +158,17 @@ padding:12px;
 
 /* each event box */
 div.rbc-event {
-  height: 100%; 
-  width: 100%;
-  font-size-adjust: 16px;
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  background-color: rgb(236, 225, 126);
+  color: black;
+  border-color: white;
+  font-family: "Lucida Console";
+  text-align: center;
+  font-size-adjust: 18px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* this shows the weeks date i.e. Feb 02-08 */
@@ -165,7 +187,7 @@ div.rbc-calendar{
 
 /* div around rbc-calendar */
 .calendar{
-  background-color:rgb(255, 251, 251 ,0.5) ;  /* rgba(red,green,blue,opacity) */
+  background-color:rgba(151, 101, 78, 0.6) ;  /* rgba(red,green,blue,opacity) */
   font-family: "Lucida Console";
   color: black;
   padding: 20px;
@@ -184,10 +206,9 @@ div.rbc-calendar{
 
 .popup {
   margin: 5% ;
-  background-color: #fefefe;
   border: 1px solid #888;
-  background-color:rgb(255, 251, 251 ,0.5) ;
-  color: black;
+  background-color:rgba(151, 101, 78, 0.4) ;
+  color: white;
   padding:10px;
   font-family: "Lucida Console";
 }
@@ -195,12 +216,33 @@ div.rbc-calendar{
 
 .schedule-meal-form {
   font-family: "Lucida Console";
-  color: black;
+  color: white;
   padding:10px;
   border: 1px solid #888;
 }
+button {
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
+  font-family: "Lucida Console";
+  background-color: white;
+}
 
+.form-input {
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
+  font-family: "Lucida Console";
+  background-color: white;
+  margin: 1%;
+  text-align: center;
+}
 .recipeimg {
+  border-style: groove;
+  border-width: 10px;
+  border-color:rgb(236, 225, 126);
   opacity: 1.0;
   display: block;
   margin-left: auto;
@@ -212,12 +254,12 @@ div.rbc-calendar{
 .recipe {
   font-family: "Lucida Console";
   margin: 30px;
-  background-color:rgb(255, 251, 251 ,0.7) ;
+  background-color:rgba(151, 101, 78, 0.6) ;
   border: 1px solid black;
   opacity: 0.9;
   margin: 5%;
   font-size: 20px;
-  color: black;
+  color: white;
 }
 
 .recipes {
@@ -227,15 +269,16 @@ div.rbc-calendar{
 
 .add-recipe-form{
   font-family: "Lucida Console";
-  background-color:rgb(255, 251, 251 ,0.4) ;
+  background-color:rgba(151, 101, 78, 0.6) ;
   margin: 5%;
+  color: white;
 }
 
 .add-my-recipe-form{
   font-family: "Lucida Console";
-  background-color:rgb(255, 251, 251 ,0.4) ;
+  background-color:rgba(151, 101, 78, 0.6) ;
   margin: 5%;
-  color: black;
+  color: white;
 }
 
 .search-icon {

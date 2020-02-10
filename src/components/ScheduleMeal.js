@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import MyCalendar from './MyCalendar';
 import Popup from './Popup';
+import FormPostMessage from './FormPostMessage';
 
 const today = new Date();
 const date = (today.getMonth()+1)+'/'+ today.getDate() + '/' + today.getFullYear();
@@ -85,8 +86,8 @@ class ScheduleMeal extends React.Component {
           : 
             (<div className="add-recipe-form"> 
              <form noValidate className="schedule-meal-form">
-               <h3 className="todays-date">Today is {date}</h3>
-                <h3>Add recipe to calendar</h3>
+               <h2 className="todays-date">Today is {date}</h2>
+                <h2>Add recipe to calendar</h2>
                 <input type="text" 
                         placeholder="Recipe Name" 
                         name="recipeInputName"

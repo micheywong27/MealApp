@@ -42,7 +42,6 @@ class MyCalendar extends React.Component{
             borderColor:"white",
             borderWidth: "2px", //how thick the border is
             fontFamily: "Lucida Console",
-            fontSize: "18px",
             textAlign: "center"
           };
           return {

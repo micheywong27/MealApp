@@ -42,10 +42,7 @@ class Popup extends React.Component {
                     }}
                     />
                     <br />
-    {/* ON CLICK MAKE EVENT TIME AUTOFILL & THEN BE ABLE TO UPDATE ON SUBMIT */}
                     <button type="submit" onClick={this.props.updateEvent}>Save</button>
-
-    {/* ON CLICK MAKE EVENT DELETE -> DELETE FETCH */}
                     <button type="submit" onClick={this.props.deleteEvent}>Delete Event</button>
                 </form>
             </div>  

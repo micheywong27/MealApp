@@ -6,9 +6,10 @@ class RecipeForm extends React.Component{
         let {url, name, ingredients, instructions, cookTime, servingSize} = this.props ;
         return(
             <div className='form'>
-                <h1>Tell us about your recipe!</h1>
+                
                 <form onSubmit={(e) => this.props.submitForm(e, url, name, ingredients, instructions, cookTime, servingSize)}>
-                    <div> 
+                    <div className="add-my-recipe-form"> 
+                        <h1>Tell us about your recipe!</h1>
                         <input type="text" 
                                 name="url"
                                 placeholder="Insert image URL" 

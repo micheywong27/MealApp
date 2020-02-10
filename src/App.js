@@ -36,15 +36,6 @@ class App extends React.Component {
     showPopup: false
   }
 
-  togglePopup=(event)=>{ 
-    console.log("in toggle popup to make popup appear", event) 
-    this.setState({  
-         showPopup: !this.state.showPopup,
-         recipeInputName: event.title
-    }) 
-
-  }  
-
   componentDidMount(){
     var key = process.env.REACT_APP_API_KEY;
     var term= this.state.searchTerm
@@ -316,6 +307,13 @@ class App extends React.Component {
     })
   }
 
+  resetShowPopup=(event)=>{
+    this.setState({
+      showPopup: !this.state.showPopup,
+      recipeInputName: event.title
+    })
+  }
+
   setInputValue = (e) => {
     this.setState({
       [e.target.name] : e.target.value
@@ -342,14 +340,44 @@ class App extends React.Component {
     })
   }
 
-  //OnClick of event, autofills form with this events title (doesnt bring you back to top?)
-  //other options are to click on event and have popup note with option to edit or delete event
-    //how to autofill times?????
-  autoFillEvent=(event)=>{
-    console.log("im inside auto fill", event)
-    this.setState({
-      recipeInputName: event.title
+  // //OnClick of event, autofills form with this events title (doesnt bring you back to top?)
+  // //other options are to click on event and have popup note with option to edit or delete event
+  //   //how to autofill times?????
+  // autoFillEvent=(event)=>{
+  //   console.log("im inside auto fill event", event)
+  //   this.setState({
+  //     recipeInputName: event.title
+  //   })
+  // }
+
+
+//Popup.js onClick delete button, sent here to delete fetch from events
+  deleteEvent=(event)=>{
+    event.preventDefault()
+    const recipe = this.state.recipeInputName
+    console.log("in delete event", event)
+    //find recipe name that matches & get its id 
+          // const recipeId = this.state.events.filter(recipe => {
+          //   return recipe.postId === 
+          // })
+
+
+    //filter the events to take out this event called this recipe WORKS
+    const filteredEvents = this.state.events.filter(event =>{
+      return event.title !== recipe
     })
+    console.log(filteredEvents)
+    //NEEED THIS RECIPES ID TO DELETE ON BACKEND
+    // fetch(`'http://127.0.0.1:3000/create_events/${id}`,{
+    //   method: 'delete'
+    // })
+
+  }
+
+  //from Popup, on Save button, update the event.id with new info
+  updateEvent=(event)=>{
+    event.preventDefault()
+    console.log("in updateEvent", event)
   }
 
   render(){ 
@@ -410,8 +438,9 @@ class App extends React.Component {
                                                 getEvents={this.getEvents}
                                                 events={this.state.events}
                                                 autoFillEvent={this.autoFillEvent}
-                                                togglePopup={this.togglePopup}
-                                                showPopup={this.state.showPopup}/> } 
+                                                resetShowPopup={this.resetShowPopup}
+                                                showPopup={this.state.showPopup}
+                                                deleteEvent={this.deleteEvent}/> } 
                                                 />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>

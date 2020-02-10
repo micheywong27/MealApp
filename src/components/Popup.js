@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 class Popup extends React.Component { 
 
   render() {  
-    console.log("in popup", this.props.startDefaultValue, this.props.endDefaultValue)
+    console.log("in popup", this.props.start, this.props.end)
     return (  
         <div className='popup'>  
             <div className='popup\_inner'>  
@@ -43,7 +43,7 @@ class Popup extends React.Component {
                     />
                     <br />
     {/* ON CLICK MAKE EVENT TIME AUTOFILL & THEN BE ABLE TO UPDATE ON SUBMIT */}
-                    <button type="submit" onClick={(e) => {this.props.updateEvent(e)}}>Save</button>
+                    <button type="submit" onClick={this.props.updateEvent}>Save</button>
 
     {/* ON CLICK MAKE EVENT DELETE -> DELETE FETCH */}
                     <button type="submit" onClick={this.props.deleteEvent}>Delete Event</button>

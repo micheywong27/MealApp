@@ -15,7 +15,8 @@ class ScheduleMeal extends React.Component {
     startDefaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time,
     endDefaultValue: today.getFullYear() + '-' + month + '-' + day + 'T' + time,
     start: '',
-    end: ''
+    end: '',
+    eventId: ''
   }
 
   changeTimes = (e) => {
@@ -33,13 +34,39 @@ class ScheduleMeal extends React.Component {
         console.log(event)
         this.setState({
           start: event.start,
-          end: event.end
+          end: event.end,
+          eventId: eventId
         },  this.props.resetShowPopup(event))
       })
       .catch(error => {
         console.log('Error fetching & parsing data', error);
       })
   }  
+
+    //from Popup, on Save button, update the event.id with new info
+    updateEvent=()=>{
+      const eventId = this.state.eventId
+      fetch(`http://127.0.0.1:3000/create_events/${eventId}`,
+            {method : 'PUT',
+            body: JSON.stringify(
+              {title: this.props.recipeInputName,
+              start: this.state.start,
+              end: this.state.end
+              }
+
+            ),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+          })
+      .then(resp => resp.json())
+    }
+
+    deleteEvent=()=>{
+      const eventId = this.state.eventId
+      fetch(`http://127.0.0.1:3000/create_events/${eventId}`, {method : 'delete'})
+      .then(resp => resp.json())
+    }
 
   render() {
     return (  
@@ -52,8 +79,8 @@ class ScheduleMeal extends React.Component {
                 setInputValue={this.props.setInputValue}
                 start={this.state.start}
                 end={this.state.end}
-                deleteEvent={this.props.deleteEvent}
-                updateEvent={this.props.updateEvent}
+                deleteEvent={this.deleteEvent}
+                updateEvent={this.updateEvent}
                 changeTimes={this.changeTimes}
           />)  
           : 
@@ -89,7 +116,7 @@ class ScheduleMeal extends React.Component {
                 }}
                 />
                 <br />
-                <button type="submit" onClick={(e) => {this.props.addEvent(e)}}>Submit</button>
+                <button type="submit" onClick={this.props.addEvent}>Submit</button>
             </form>)
           }
           

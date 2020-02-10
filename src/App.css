@@ -141,13 +141,14 @@ padding:12px;
 
 /*each box on the calendar */
 .rbc-time-slot{
-  min-height: 8px;
+  min-height: 5px;
 }
 
 /* each event box */
-.rbc-event {
-  height:auto; 
-  border-radius: 20px 20px 0px 0px;
+div.rbc-event {
+  height: 100%; 
+  width: 100%;
+  font-size: 10px;
 }
 
 /* this shows the weeks date i.e. Feb 02-08 */
@@ -155,6 +156,23 @@ padding:12px;
   font-family: "Lucida Console";
   color: black;
 }
+
+.rbc-header{
+  height: 150%; 
+}
+
+div.rbc-calendar{
+  height: 800px;
+}
+
+/* div around rbc-calendar */
+.calendar{
+  background-color:white ;
+  font-family: "Lucida Console";
+  color: black;
+  padding: 20px;
+}
+
 
 .container input {
 	width: 100%;
@@ -206,8 +224,15 @@ padding:12px;
 
 .schedule-meal-form {
   font-family: "Lucida Console";
-  color: white;
-  padding: 10px;
+  color: black;
+  padding:10px;
+}
+.add-recipe-form{
+  font-family: "Lucida Console";
+  opacity: 0.8;
+  background-color: white;
+  margin: 5%;
+  
 }
 
 .search-icon {

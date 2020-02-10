@@ -71,7 +71,6 @@ class ScheduleMeal extends React.Component {
   render() {
     return (  
       <div> 
-        <h3 className="schedule-meal-form">Today is {date}</h3>
         {this.props.showPopup ?  
           (<Popup  
                 text='Click "Close Button" to hide popup'  
@@ -84,7 +83,9 @@ class ScheduleMeal extends React.Component {
                 changeTimes={this.changeTimes}
           />)  
           : 
-            (<form noValidate className="schedule-meal-form">
+            (<div className="add-recipe-form"> 
+             <form noValidate className="schedule-meal-form">
+               <h3 className="todays-date">Today is {date}</h3>
                 <h3>Add recipe to calendar</h3>
                 <input type="text" 
                         placeholder="Recipe Name" 
@@ -117,7 +118,8 @@ class ScheduleMeal extends React.Component {
                 />
                 <br />
                 <button type="submit" onClick={this.props.addEvent}>Submit</button>
-            </form>)
+            </form>
+            </div>)
           }
           
         <MyCalendar getEvents={this.props.getEvents}

@@ -18,7 +18,7 @@ class MyCalendar extends React.Component{
     const allViews = Object.keys(Views).map(k => Views[k])
 
     return(
-      <div> 
+      <div className="calendar"> 
         <Calendar
         localizer={localizer}
         events={mappableEvents}

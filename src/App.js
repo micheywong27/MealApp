@@ -325,7 +325,8 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(events =>{
       this.setState({
-        events: events
+        events: events,
+        recipeInputName: ''
       })
     })
     .catch(error => {

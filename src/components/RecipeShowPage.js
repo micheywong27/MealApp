@@ -35,6 +35,7 @@ class RecipeShowPage extends React.Component{
                 <Link to='/calendar' className='link'>
                 <button onClick={() => {this.props.addRecipeToCalendar(recipe.title, recipe)}} >Add recipe to your calendar</button>
                 </Link>
+                <button onClick={this.props.addGroceryItem}>Add ingredient to grocery list</button>
                 <Link to='/recipes'>
                 <button >Go back to recipes</button>
                 </Link>

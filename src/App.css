@@ -169,6 +169,7 @@ div.rbc-event {
   font-size-adjust: 18px;
   margin-left: auto;
   margin-right: auto;
+ 
 }
 
 /* this shows the weeks date i.e. Feb 02-08 */
@@ -184,6 +185,7 @@ div.rbc-event {
 div.rbc-calendar{
   height: 800px; 
 }
+
 
 /* div around rbc-calendar */
 .calendar{

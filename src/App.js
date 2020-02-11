@@ -341,8 +341,30 @@ class App extends React.Component {
     })
   }
 
-  render(){ 
+  
+    
+  // let groceryItems = ["chicken", "ham", "cheese"];
+  // let newItem = prompt("Add a grocery item");
+  // groceryItems.push(newItem)
+  // localStorage.setItem("groceryItems", JSON.stringify(groceryItems));
+  // const storedItems = JSON.parse(localStorage.getItem("groceryItems"));
 
+  //setItem overwrites entry that was there before
+    //getItem to retrieve old list, append to it then save it back to local storage
+  addGroceryItem=()=>{
+    console.log("in add grocery item")
+    var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
+    var newItem = prompt("Add a grocery item");
+    if(existingEntries == null) existingEntries = []; 
+    localStorage.setItem("newItem", JSON.stringify(newItem));
+    // Save groceryItems back to local storage
+    existingEntries.push(newItem);
+    localStorage.setItem("groceryItems", JSON.stringify(existingEntries));
+  }
+
+  render(){ 
+    var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
+    console.log(existingEntries)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
@@ -371,7 +393,9 @@ class App extends React.Component {
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            addGroceryItem={this.addGroceryItem}
+                                                            /> } />
           <Route path='/recipes' render={() => <RecipePosts recipes={this.state.recipes}
                                                             searchResults={this.searchResults}
                                                             fetchRecipe={this.fetchRecipe} />}  />
@@ -381,7 +405,9 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />                                                
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            existingEntries={existingEntries}
+                                                            /> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}

@@ -1,8 +1,13 @@
 import React from 'react';
 import MyPosts from './MyPosts'
 import MyFavorites from './MyFavorites'
+import GroceryItem from '../components/GroceryItem'
+
 
 class UserProfile extends React.Component{
+
+   
+
     render(){ 
         return(
             <div className="profile"> 
@@ -33,7 +38,15 @@ class UserProfile extends React.Component{
                     :
                     <p>You haven't favorited any recipes</p>
                 }
-                
+                <h1>Grocery List</h1>
+                {
+                    this.props.existingEntries ?
+                    this.props.existingEntries.map(item => {
+                        return <GroceryItem item={item} />
+                    })
+                    :
+                    <p>You have no items in your grocery list</p>
+                }
             </div>
         )
     }

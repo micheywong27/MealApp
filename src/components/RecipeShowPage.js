@@ -11,9 +11,6 @@ class RecipeShowPage extends React.Component{
         }
     }
 
-    
-
-
     render() {
         let { recipe } = this.props;
         const img = this.props.nutritionInfo.image
@@ -24,7 +21,7 @@ class RecipeShowPage extends React.Component{
                 <h1>{recipe.title}</h1>
                 <p>Ready in: {recipe.readyInMinutes} minutes</p>
                 <p>Serving size: {recipe.servings}</p>
-                <p>{this.props.nutritionInfo.instructions}</p>
+                <p>How to make: {this.props.nutritionInfo.instructions}</p>
                 <p>Ingredients: </p>
                 {this.props.nutritionInfo.extendedIngredients ? 
                     this.props.nutritionInfo.extendedIngredients.map(ingredient =>{
@@ -36,8 +33,9 @@ class RecipeShowPage extends React.Component{
                 <br />
                 <button onClick={()=>{this.favFilter(recipe, this.props.nutritionInfo)}}>{favButton}</button>
                 <Link to='/calendar' className='link'>
-                <button onClick={() => {this.props.addRecipeToCalendar(recipe)}} >Add recipe to your calendar</button>
+                <button onClick={() => {this.props.addRecipeToCalendar(recipe.title, recipe)}} >Add recipe to your calendar</button>
                 </Link>
+                <button onClick={this.props.addGroceryItem}>Add ingredient to grocery list</button>
                 <Link to='/recipes'>
                 <button >Go back to recipes</button>
                 </Link>

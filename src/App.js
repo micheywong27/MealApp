@@ -27,11 +27,13 @@ class App extends React.Component {
     cookTime: '',
     servingSize: '',
     isSubmitted: false,
+    isDeleted: false,
     startTime: '',
     endTime: '',
     recipeInputName: '',
     events: [],
-    recipeEvent: []
+    recipePostId: '',
+    showPopup: false
   }
 
   componentDidMount(){
@@ -70,7 +72,6 @@ class App extends React.Component {
     })
   }
 
-  //search bar input will GET fetch to show results based on the search term
   searchResults=(searched)=>{
     this.setState({
       searchTerm: searched
@@ -105,6 +106,7 @@ class App extends React.Component {
     this.setState({
       myFavs: [...this.state.myFavs, recipe]
     })    
+
     fetch('http://127.0.0.1:3000/recipe_posts', {
       method: 'POST',
       headers:{ 'Content-Type': 'application/json',
@@ -161,7 +163,8 @@ class App extends React.Component {
         return !recipe.spoonKey
       })
       this.setState({
-          myRecipes: filteredRecipes
+          myRecipes: filteredRecipes,
+          isDeleted: false
         }
       )
       this.getMyFavs(myrecipes)
@@ -219,19 +222,22 @@ class App extends React.Component {
         })
       })
     .then(resp => resp.json())
-    .then( () => {
+    .then((recipe) => {
       this.setState({
-        url: '',
-        name: '',
-        ingredients: '',
-        instructions: '',
-        cookTime: '',
-        servingSize: '',
-        isSubmitted: true
+        myRecipes: [...this.state.myRecipes,recipe]
       })
     })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
+    })
+    this.setState({
+      url: '',
+      name: '',
+      ingredients: '',
+      instructions: '',
+      cookTime: '',
+      servingSize: '',
+      isSubmitted: true
     })
   }
 
@@ -240,7 +246,6 @@ class App extends React.Component {
       isSubmitted: false
     })
   }
-
 
   showRecipe=(recipe)=>{
     this.setState({
@@ -253,17 +258,32 @@ class App extends React.Component {
     fetch(`http://127.0.0.1:3000/recipe_posts/${id}`,{
       method: 'delete'
     })
-    .then(() => {console.log("Recipe has been removed")})
+    .then(() => {
+      const updatedRecipes = this.state.myRecipes.filter(r => {
+        return r !== recipe 
+      })
+      this.setState({
+        isDeleted: true,
+        myRecipes: updatedRecipes     
+      })
+    })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
     })
   }
 
-  addEvent = (e) => {
-    e.preventDefault()
+  isDeletedRefresh=()=>{
+    console.log("resentting isDeleted")
+    this.setState({
+      isDeleted: false
+    })
+  }
+
+  addEvent = () => {
     const recipeName = this.state.recipeInputName
     const startTime = this.state.startTime
     const endTime = this.state.endTime
+    const postId = this.state.recipePostId
     fetch('http://127.0.0.1:3000/create_events', {
           method: 'POST',
           headers:{ 'Content-Type': 'application/json',
@@ -273,13 +293,24 @@ class App extends React.Component {
             allDay: false,
             start: startTime,
             end: endTime,
-            postId: 1
+            postId: postId
         })
       })
     .then(resp => resp.json())
-    .then(event => console.log(event))
+    .then(() => {
+      this.setState({
+        showPopup: false
+      })
+    })
     .catch(error => {
       console.log('Error fetching & parsing data', error);
+    })
+  }
+
+  resetShowPopup=(event)=>{
+    this.setState({
+      showPopup: !this.state.showPopup,
+      recipeInputName: event.title
     })
   }
 
@@ -294,7 +325,8 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(events =>{
       this.setState({
-        events: events
+        events: events,
+        recipeInputName: ''
       })
     })
     .catch(error => {
@@ -302,13 +334,37 @@ class App extends React.Component {
     })
   }
 
-    addRecipeToCalendar=(recipe)=>{
-      this.setState({
-        recipeInputName: recipe.title
-      })
-    }
+  addRecipeToCalendar=(recipeName, recipe)=>{
+    this.setState({
+      recipeInputName: recipeName,
+      recipePostId: recipe.id
+    })
+  }
+
+  
+    
+  // let groceryItems = ["chicken", "ham", "cheese"];
+  // let newItem = prompt("Add a grocery item");
+  // groceryItems.push(newItem)
+  // localStorage.setItem("groceryItems", JSON.stringify(groceryItems));
+  // const storedItems = JSON.parse(localStorage.getItem("groceryItems"));
+
+  //setItem overwrites entry that was there before
+    //getItem to retrieve old list, append to it then save it back to local storage
+  addGroceryItem=()=>{
+    console.log("in add grocery item")
+    var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
+    var newItem = prompt("Add a grocery item");
+    if(existingEntries == null) existingEntries = []; 
+    localStorage.setItem("newItem", JSON.stringify(newItem));
+    // Save groceryItems back to local storage
+    existingEntries.push(newItem);
+    localStorage.setItem("groceryItems", JSON.stringify(existingEntries));
+  }
 
   render(){ 
+    var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
+    console.log(existingEntries)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
@@ -322,31 +378,35 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            /> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            isDeleted={this.state.isDeleted}
+                                                            isDeletedRefresh = {this.isDeletedRefresh}
                                                             /> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
-                                                            recipeEvent={this.state.recipeEvent}
                                                             addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            addGroceryItem={this.addGroceryItem}
                                                             /> } />
           <Route path='/recipes' render={() => <RecipePosts recipes={this.state.recipes}
                                                             searchResults={this.searchResults}
-                                                            fetchRecipe={this.fetchRecipe} 
-                                                            />}  />
+                                                            fetchRecipe={this.fetchRecipe} />}  />
           <Route path='/profile' render={() => <UserProfile myFavs={this.state.myFavs}
                                                             nutritionInfo={this.state.nutritionInfo}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
                                                             myRecipes={this.state.myRecipes}
                                                             showRecipe={this.showRecipe}
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            existingEntries={existingEntries}
                                                             /> } />                                                
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
@@ -356,8 +416,7 @@ class App extends React.Component {
                                                         cookTime={this.state.cookTime}
                                                         servingSize={this.state.servingSize}
                                                         onChange={this.onChange}
-                                                        isSubmitted={this.state.isSubmitted}
-                                                        /> } />
+                                                        isSubmitted={this.state.isSubmitted}/> } />
           <Route path='/calendar' render={() => <ScheduleMeal addEvent={this.addEvent}
                                                 setInputValue={this.setInputValue}
                                                 startTime={this.state.startTime}
@@ -365,8 +424,11 @@ class App extends React.Component {
                                                 recipeInputName={this.state.recipeInputName}
                                                 getEvents={this.getEvents}
                                                 events={this.state.events}
-                                                recipeEvent={this.state.recipeEvent}
-                                                /> } />
+                                                autoFillEvent={this.autoFillEvent}
+                                                resetShowPopup={this.resetShowPopup}
+                                                showPopup={this.state.showPopup}
+                                                /> } 
+                                                />
           <Route exact path='/' render={() => <Login /> } />  
         </Switch>
       </div>

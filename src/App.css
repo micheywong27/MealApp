@@ -4,11 +4,23 @@
 .App {
   text-align: center;
   background-image: url("https://i5.walmartimages.com/asr/fa7379a8-ce94-4d68-88ea-7a1225de0b66_1.f40b99d05e47121a273df5250dadb121.jpeg") ;
-  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
-  
+  position: fixed;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+}
+
+#root {
+  min-width: 100%;
+  min-height: 100%;
 }
 
 a {
@@ -23,13 +35,13 @@ a:hover {
 }
 
 .previous {
-  background-color: maroon;
-  color: white;
+  background-color: rgb(236, 197, 126);
+  color: black;
 }
 
 .next {
-  background-color: maroon;
-  color: white;
+  background-color: rgb(236, 225, 126);
+  color: black;
 }
 
 .round {
@@ -64,7 +76,7 @@ a:hover {
 }
 
 .form {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
 }
 
@@ -104,27 +116,27 @@ padding:12px;
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 35px;
   color: white
 }
 
 .navbar {
   display: flex;
-  font-family: cursive;
+  font-family: "Lucida Console";
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
-  background: maroon;
+  padding: 5px 20px;
+  background: rgb(151, 101, 78);
 }
 
 .profile {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
 }
 
 .heading {
 	font-size: 30px;
-	padding: 16px 0;
+	padding: 16px;
 	color: white;
   text-align: center;
 }
@@ -139,6 +151,51 @@ padding:12px;
 	position: relative;
 }
 
+/*each box on the calendar */
+.rbc-time-slot{
+  min-height: 5px;
+}
+
+/* each event box */
+div.rbc-event {
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  background-color: rgb(236, 225, 126);
+  color: black;
+  border-color: white;
+  font-family: "Lucida Console";
+  text-align: center;
+  font-size-adjust: 18px;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+/* this shows the weeks date i.e. Feb 02-08 */
+.rbc-toolbar-label {
+  font-family: "Lucida Console";
+  color: black;
+}
+
+.rbc-header{
+  height: 150%; 
+}
+
+div.rbc-calendar{
+  height: 800px; 
+}
+
+
+/* div around rbc-calendar */
+.calendar{
+  background-color:rgba(151, 101, 78, 0.6) ;  /* rgba(red,green,blue,opacity) */
+  font-family: "Lucida Console";
+  color: black;
+  padding: 20px;
+}
+
+
 .container input {
 	width: 100%;
 	padding: 5px;
@@ -149,30 +206,81 @@ padding:12px;
 	outline: none;
 }
 
+.popup {
+  margin: 5% ;
+  border: 1px solid #888;
+  background-color:rgba(151, 101, 78, 0.4) ;
+  color: white;
+  padding:10px;
+  font-family: "Lucida Console";
+}
+
+
+.schedule-meal-form {
+  font-family: "Lucida Console";
+  color: white;
+  padding:10px;
+  border: 1px solid #888;
+}
+button {
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
+  font-family: "Lucida Console";
+  background-color: white;
+}
+
+.form-input {
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
+  font-family: "Lucida Console";
+  background-color: white;
+  margin: 1%;
+  text-align: center;
+}
 .recipeimg {
+  border-style: groove;
+  border-width: 10px;
+  border-color:rgb(236, 225, 126);
   opacity: 1.0;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .recipe {
-  font-family: cursive;
+  font-family: "Lucida Console";
   margin: 30px;
-  background-color: #ffffff;
+  background-color:rgba(151, 101, 78, 0.6) ;
   border: 1px solid black;
   opacity: 0.9;
   margin: 5%;
-  font-weight: bold;
   font-size: 20px;
-  color: black;
+  color: white;
 }
 
 .recipes {
-  font-family: cursive;
+  font-family: "Lucida Console";
   color: white
+}
+
+.add-recipe-form{
+  font-family: "Lucida Console";
+  background-color:rgba(151, 101, 78, 0.6) ;
+  margin: 5%;
+  color: white;
+}
+
+.add-my-recipe-form{
+  font-family: "Lucida Console";
+  background-color:rgba(151, 101, 78, 0.6) ;
+  margin: 5%;
+  color: white;
 }
 
 .search-icon {

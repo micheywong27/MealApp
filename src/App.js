@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import FavoriteShowPage from './components/FavoriteShowPage';
+import GroceryListUpdate from './components/GroceryListUpdate'
 import Login from './components/Login'
 import MyPostsShowPage from './components/MyPostsShowPage';
 import Navbar from './components/Navbar';
@@ -341,18 +342,7 @@ class App extends React.Component {
     })
   }
 
-  
-    
-  // let groceryItems = ["chicken", "ham", "cheese"];
-  // let newItem = prompt("Add a grocery item");
-  // groceryItems.push(newItem)
-  // localStorage.setItem("groceryItems", JSON.stringify(groceryItems));
-  // const storedItems = JSON.parse(localStorage.getItem("groceryItems"));
-
-  //setItem overwrites entry that was there before
-    //getItem to retrieve old list, append to it then save it back to local storage
   addGroceryItem=()=>{
-    console.log("in add grocery item")
     var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
     var newItem = prompt("Add a grocery item");
     if(existingEntries == null) existingEntries = []; 
@@ -361,6 +351,8 @@ class App extends React.Component {
     existingEntries.push(newItem);
     localStorage.setItem("groceryItems", JSON.stringify(existingEntries));
   }
+
+  
 
   render(){ 
     var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
@@ -407,7 +399,9 @@ class App extends React.Component {
                                                             showRecipe={this.showRecipe}
                                                             addRecipeToCalendar={this.addRecipeToCalendar}
                                                             existingEntries={existingEntries}
-                                                            /> } />                                                
+                                                            createCheckboxes={this.createCheckboxes}
+                                                            /> } />    
+          <Route path='/grocerylist/update' render={() => <GroceryListUpdate existingEntries={existingEntries}/> } />                                                                                              
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}

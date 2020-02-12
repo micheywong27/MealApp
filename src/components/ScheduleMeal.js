@@ -31,7 +31,6 @@ class ScheduleMeal extends React.Component {
       fetch(`http://127.0.0.1:3000/create_events/${eventId}`)
       .then(resp => resp.json())
       .then(event =>{
-        console.log(event)
         this.setState({
           start: event.start,
           end: event.end,
@@ -81,6 +80,7 @@ class ScheduleMeal extends React.Component {
                 deleteEvent={this.deleteEvent}
                 updateEvent={this.updateEvent}
                 changeTimes={this.changeTimes}
+                resetShowPopup={this.props.resetShowPopup}
           />)  
           : 
             (<div className="add-recipe-form"> 

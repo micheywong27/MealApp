@@ -20,6 +20,7 @@ class MyPostsShowPage extends React.Component{
                 <button onClick={() => {this.props.addRecipeToCalendar(recipe.name, recipe)}}>Add recipe to your calendar</button>
                 }
                 </Link>
+                <button onClick={this.props.addGroceryItem}>Add ingredient to grocery list</button>
                 <Link to='/profile' >
                 <button onClick={() => this.props.isDeletedRefresh()}>Go back to your profile</button>
                 </Link>

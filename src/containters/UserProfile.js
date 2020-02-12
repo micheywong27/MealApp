@@ -1,28 +1,27 @@
 import GroceryItem from '../components/GroceryItem';
-import GroceryListUpdate from '../components/GroceryListUpdate';
-import { Link } from 'react-router-dom';
+import Checkbox from '../components/Checkbox';
 import MyPosts from './MyPosts';
 import MyFavorites from './MyFavorites';
 import React from 'react';
-
-const OPTIONS = ["One", "Two", "Three"];
 
 class UserProfile extends React.Component{
     state = {
         checkboxes: this.props.existingEntries.reduce(
             (options, option) => ({
-              ...options,
-              [option]: false
-            }),
-            {}
-          ),
-        updateList: false
+                    ...options,
+                    [option]: false
+                    }),
+                {}
+            ),
+        updateList: false,
+        uncheckedItems:[]
     }
 
     updateGroceryList=()=>{
         this.setState({
             updateList: !this.state.updateList
         })
+        this.saveUncheckedItems()
     }
 
     selectAllCheckboxes = isSelected => {
@@ -63,7 +62,7 @@ class UserProfile extends React.Component{
       };
     
     createCheckbox = (option) => (
-        <GroceryListUpdate
+        <Checkbox
           label={option}
           isSelected={this.state.checkboxes[option]}
           onCheckboxChange={this.handleCheckboxChange}
@@ -72,11 +71,18 @@ class UserProfile extends React.Component{
       );
 
     createCheckboxes = () => this.props.existingEntries.map(this.createCheckbox);
+    
+    saveUncheckedItems=()=>{
+        const uncheckedItems = Object.keys(this.state.checkboxes)
+        .filter(key => this.state.checkboxes[key] === false)
+
+        this.props.resetGroceryItems(uncheckedItems)
+    }
 
     render(){ 
         return(
             <div className="profile"> 
-                <h1>Michelle's Profile</h1> 
+                <h1>{this.props.username}'s Profile</h1> 
                 <br /> 
                 <h1>My Posts</h1> 
                 {
@@ -110,39 +116,32 @@ class UserProfile extends React.Component{
                         {this.createCheckboxes()}
 
                         <div className="form-group mt-2">
-                            <button
-                            type="button"
-                            className="btn btn-outline-primary mr-2"
-                            onClick={this.selectAll}
+                            <button type="button"
+                                onClick={this.selectAll}
                             >
                             Select All
                             </button>
-                            <button
-                            type="button"
-                            className="btn btn-outline-primary mr-2"
-                            onClick={this.deselectAll}
+                            <button type="button"
+                                onClick={this.deselectAll}
                             >
                             Deselect All
                             </button>
-                            <button type="submit" className="btn btn-primary"
+                            <button type="submit"
                                     onClick={this.updateGroceryList}>
                             Save
                             </button>
                         </div>
                     </form>)
                 :
-                    
-                        this.props.existingEntries ? 
+                    this.props.existingEntries ? 
                         (       
-                            this.props.existingEntries.map(item => {
-                                return <GroceryItem item={item}  key={item.id}/>
+                            this.props.existingEntries.map((item,indx) => {
+                                return <GroceryItem item={item}  key={indx}/>
                                 })
                         )
-                        :
+                    :
                         <p>You have no items in your grocery list</p>
-                    
                 }
-
             </div>
         )
     }

@@ -179,11 +179,11 @@ div.rbc-event {
 }
 
 .rbc-header{
-  height: 150%; 
+  height: 200%; 
 }
 
 div.rbc-calendar{
-  height: 800px; 
+  height: 1500px; 
 }
 
 
@@ -204,6 +204,15 @@ div.rbc-calendar{
 	color: #444;
 	box-sizing: border-box;
 	outline: none;
+}
+
+.login-page {
+  margin: 5% ;
+  border: 1px solid #888;
+  background-color:rgba(151, 101, 78, 0.4) ;
+  color: white;
+  padding:10px;
+  font-family: "Lucida Console";
 }
 
 .popup {

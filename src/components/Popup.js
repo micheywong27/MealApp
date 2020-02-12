@@ -2,7 +2,6 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 class Popup extends React.Component { 
-
   render() {  
     console.log("in popup", this.props.start, this.props.end)
     return (  
@@ -44,6 +43,7 @@ class Popup extends React.Component {
                     <br />
                     <button type="submit" onClick={this.props.updateEvent}>Save</button>
                     <button type="submit" onClick={this.props.deleteEvent}>Delete Event</button>
+                    <button type="submit" onClick={this.props.resetShowPopup}>Close</button>
                 </form>
             </div>  
         </div>  

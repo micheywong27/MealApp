@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import FavoriteShowPage from './components/FavoriteShowPage';
+import GroceryListUpdate from './components/Checkbox'
 import Login from './components/Login'
 import MyPostsShowPage from './components/MyPostsShowPage';
 import Navbar from './components/Navbar';
@@ -33,7 +34,9 @@ class App extends React.Component {
     recipeInputName: '',
     events: [],
     recipePostId: '',
-    showPopup: false
+    showPopup: false,
+    groceryList: [],
+    username: 'Michelle'
   }
 
   componentDidMount(){
@@ -341,18 +344,7 @@ class App extends React.Component {
     })
   }
 
-  
-    
-  // let groceryItems = ["chicken", "ham", "cheese"];
-  // let newItem = prompt("Add a grocery item");
-  // groceryItems.push(newItem)
-  // localStorage.setItem("groceryItems", JSON.stringify(groceryItems));
-  // const storedItems = JSON.parse(localStorage.getItem("groceryItems"));
-
-  //setItem overwrites entry that was there before
-    //getItem to retrieve old list, append to it then save it back to local storage
   addGroceryItem=()=>{
-    console.log("in add grocery item")
     var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
     var newItem = prompt("Add a grocery item");
     if(existingEntries == null) existingEntries = []; 
@@ -360,11 +352,27 @@ class App extends React.Component {
     // Save groceryItems back to local storage
     existingEntries.push(newItem);
     localStorage.setItem("groceryItems", JSON.stringify(existingEntries));
+    this.setState({
+      groceryList: existingEntries
+    })
   }
 
-  render(){ 
+    resetGroceryItems=(uncheckedItems)=>{
+      localStorage.setItem("groceryItems", JSON.stringify(uncheckedItems));
+      var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
+      this.setState({
+        groceryList: existingEntries
+      })
+    }
+
+    updateUsername=(username)=>{
+        this.setState({
+          username: username
+        })
+    }
+  
+  render(){   
     var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
-    console.log(existingEntries)
     return (
       <div className="App">
         <Navbar getMyRecipes={this.getMyRecipes}
@@ -378,7 +386,8 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            addGroceryItem={this.addGroceryItem}/> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}
@@ -387,6 +396,7 @@ class App extends React.Component {
                                                             addRecipeToCalendar={this.addRecipeToCalendar}
                                                             isDeleted={this.state.isDeleted}
                                                             isDeletedRefresh = {this.isDeletedRefresh}
+                                                            addGroceryItem={this.addGroceryItem}
                                                             /> } />
           <Route path='/recipes/:id' render={() => <RecipeShowPage recipe={this.state.recipe}
                                                             nutritionInfo={this.state.nutritionInfo}
@@ -407,7 +417,12 @@ class App extends React.Component {
                                                             showRecipe={this.showRecipe}
                                                             addRecipeToCalendar={this.addRecipeToCalendar}
                                                             existingEntries={existingEntries}
-                                                            /> } />                                                
+                                                            createCheckboxes={this.createCheckboxes}
+                                                            resetGroceryItems={this.resetGroceryItems}
+                                                            username={this.state.username}
+                                                            addGroceryItem={this.addGroceryItem}
+                                                            /> } />    
+          <Route path='/grocerylist/update' render={() => <GroceryListUpdate existingEntries={existingEntries}/> } />                                                                                              
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}
                                                         url={this.state.url}
                                                         name={this.state.name}
@@ -429,7 +444,7 @@ class App extends React.Component {
                                                 showPopup={this.state.showPopup}
                                                 /> } 
                                                 />
-          <Route exact path='/' render={() => <Login /> } />  
+          <Route exact path='/' render={() => <Login updateUsername={this.updateUsername} /> } />  
         </Switch>
       </div>
     );

@@ -1,6 +1,14 @@
  /* @import "bootstrap";  */
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
- 
+
+.add-recipe-form{
+  font-family: "Lucida Console";
+  background-color:rgba(151, 101, 78, 0.6) ;
+  margin: 5%;
+  color: white;
+  
+}
+
 .App {
   text-align: center;
   background-image: url("https://i5.walmartimages.com/asr/fa7379a8-ce94-4d68-88ea-7a1225de0b66_1.f40b99d05e47121a273df5250dadb121.jpeg") ;
@@ -75,12 +83,42 @@ a:hover {
   color: #61dafb;
 }
 
-.form {
+button {
+  padding: 5px 20px 5px 20px;
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
   font-family: "Lucida Console";
-  color: white
+  background-color: white;
 }
 
- 
+.container {
+	margin: 36px auto;
+	width: 100%;
+	max-width: 800px;
+}
+
+.form {
+  font-family: "Lucida Console";
+  color: white;
+  background-color: rgba(151, 101, 78, 0.6);
+  border: 2px solid rgba(151, 101, 78, 0.7);
+  border-width: 2px;
+  margin: 30px 10px 30px 10px; 
+  padding: 40px 50px 100px 50px; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+
+  
+}
+
+.heading {
+	font-size: 30px;
+	padding: 16px;
+	color: white;
+  text-align: center;
+}
+
 .isa_info, .isa_success, .isa_warning, .isa_error {
 margin: 10px 0px;
 padding:12px;
@@ -131,24 +169,30 @@ padding:12px;
 
 .profile {
   font-family: "Lucida Console";
-  color: white
+  color: white;
 }
 
-.heading {
-	font-size: 30px;
-	padding: 16px;
-	color: white;
-  text-align: center;
+.img{
+  border-radius: 80%;
+  width: 40%;
+  height: 80%;
+  float: left;
 }
 
-.container {
-	margin: 36px auto;
-	width: 100%;
-	max-width: 800px;
+.username{
+  float: right;
 }
-
-.search-label {
-	position: relative;
+.profile-name{
+  font-family: "Lucida Console";
+  color: white;
+  background-color: rgba(151, 101, 78, 0.6);
+  border: 2px solid rgba(151, 101, 78, 0.7);
+  border-width: 2px;
+  margin: 30px 10px 10px 10px; 
+  padding: 20px 50px 20px 50px; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  float: left;
+  width: 98%;
 }
 
 /*each box on the calendar */
@@ -169,7 +213,6 @@ div.rbc-event {
   font-size-adjust: 18px;
   margin-left: auto;
   margin-right: auto;
- 
 }
 
 /* this shows the weeks date i.e. Feb 02-08 */
@@ -179,22 +222,19 @@ div.rbc-event {
 }
 
 .rbc-header{
-  height: 150%; 
+  height: 200%; 
 }
 
 div.rbc-calendar{
-  height: 800px; 
+  height: 1500px; 
 }
 
-
-/* div around rbc-calendar */
 .calendar{
   background-color:rgba(151, 101, 78, 0.6) ;  /* rgba(red,green,blue,opacity) */
   font-family: "Lucida Console";
   color: black;
   padding: 20px;
 }
-
 
 .container input {
 	width: 100%;
@@ -206,29 +246,36 @@ div.rbc-calendar{
 	outline: none;
 }
 
-.popup {
+.form-check{
+  font-family: "Lucida Console";
+  color: white;
+  font-size: 30px;
+  
+}
+
+.login-page {
   margin: 5% ;
-  border: 1px solid #888;
+  border: 2px solid #888;
   background-color:rgba(151, 101, 78, 0.4) ;
   color: white;
   padding:10px;
   font-family: "Lucida Console";
 }
 
+.popup {
+  margin: 5% ;
+  border: 2px solid #888;
+  background-color:rgba(151, 101, 78, 0.4) ;
+  color: white;
+  padding:10px;
+  font-family: "Lucida Console";
+}
 
 .schedule-meal-form {
   font-family: "Lucida Console";
   color: white;
   padding:10px;
-  border: 1px solid #888;
-}
-button {
-  border-style: outset;
-  border-radius: 20px 40px;
-  border-width: 5px;
-  border-color:rgb(236, 225, 126);
-  font-family: "Lucida Console";
-  background-color: white;
+  border: 2px solid #888;
 }
 
 .form-input {
@@ -238,8 +285,23 @@ button {
   border-color:rgb(236, 225, 126);
   font-family: "Lucida Console";
   background-color: white;
-  margin: 1%;
-  text-align: center;
+  width: 30%;
+  text-align: left;
+  padding: 20px;
+  margin: 10px;
+}
+.form-input-instructions{
+  border-style: outset;
+  border-radius: 20px 40px;
+  border-width: 5px;
+  border-color:rgb(236, 225, 126);
+  font-family: "Lucida Console";
+  background-color: white;
+  width: 30%;
+  height: 150px;
+  text-align: left;
+  padding: 20px;
+  margin: 10px;
 }
 .recipeimg {
   border-style: groove;
@@ -257,30 +319,64 @@ button {
   font-family: "Lucida Console";
   margin: 30px;
   background-color:rgba(151, 101, 78, 0.6) ;
-  border: 1px solid black;
+  border: 2px solid black;
   opacity: 0.9;
   margin: 5%;
   font-size: 20px;
   color: white;
 }
 
+/* .profile-header {
+  z-index: 1;
+  widows: 100%;
+  margin-top: 20px;
+  height: 60px;
+  background-color: rgba(151, 101, 78, 0.6);
+  padding: 5px 50px 10px 50px; 
+} */
+
+.mypost{
+  font-family: "Lucida Console";
+  color: white;
+  background-color: rgba(151, 101, 78, 0.6);
+  border: 2px solid rgba(151, 101, 78, 0.7);
+  border-width: 2px;
+  margin: 30px 10px 30px 10px; 
+  padding: 100px 50px 100px 50px; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  float: left;
+  width: 30%;
+}
+
+
+.grocery-list{
+  font-family: "Lucida Console";
+  color: white;
+  background-color: rgba(151, 101, 78, 0.6);
+  border: 2px solid rgba(151, 101, 78, 0.7);
+  border-width: 2px;
+  margin: 50px 10px 50px 10px; 
+  padding: 40px 50px 40px 50px; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  float: left;
+  width: 98%;
+}
+
 .recipes {
   font-family: "Lucida Console";
-  color: white
+  color: white;
+  background-color: rgba(151, 101, 78, 0.6);
+  border: 2px solid rgba(151, 101, 78, 0.7);
+  border-width: 2px;
+  margin: 30px 10px 30px 10px; /* margin -> outside the border (outter layer) */
+  padding: 100px 50px 100px 50px; /* padding -> surrounds the words */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  float: left;
+  width: 30%;
 }
 
-.add-recipe-form{
-  font-family: "Lucida Console";
-  background-color:rgba(151, 101, 78, 0.6) ;
-  margin: 5%;
-  color: white;
-}
-
-.add-my-recipe-form{
-  font-family: "Lucida Console";
-  background-color:rgba(151, 101, 78, 0.6) ;
-  margin: 5%;
-  color: white;
+.search-label {
+	position: relative;
 }
 
 .search-icon {

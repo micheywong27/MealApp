@@ -15,7 +15,7 @@ class RecipePosts extends React.Component{
     
     render(){
         return(
-            <div className="recipes">
+            <div >
                 <div className="container">
                     <form onChange={() => this.props.searchResults(this.state.term)}>
                         <label className="search-label" htmlFor="search-input">

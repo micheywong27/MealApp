@@ -28,6 +28,7 @@ class FavoriteShowPage extends React.Component{
                 <Link to='/calendar' className='link'>
                 <button onClick={() => {this.props.addRecipeToCalendar(recipe.name, recipe)}} >Add recipe to your calendar</button>
                 </Link>
+                <button onClick={this.props.addGroceryItem}>Add ingredient to grocery list</button>
                 <Link to='/profile'>
                 <button>Go back to profile</button>
                 </Link>

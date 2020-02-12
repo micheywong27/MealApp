@@ -9,7 +9,7 @@ class RecipeForm extends React.Component{
                 
                 <form onSubmit={(e) => this.props.submitForm(e, url, name, ingredients, instructions, cookTime, servingSize)}>
                     <div className="add-my-recipe-form"> 
-                        <h1>Tell us about your recipe!</h1>
+                        <h1 style={{fontSize:"50px"}}>Share your recipe <span aria-labelledby="plate" role="img">🍽️</span></h1>
                         <input className="form-input"
                                 type="text" 
                                 name="url"
@@ -45,7 +45,7 @@ class RecipeForm extends React.Component{
                                 value={ingredients}
                                 onChange={(e) => this.props.onChange(e)} />
                         <br />
-                        <textarea className="form-input"
+                        <textarea className="form-input-instructions"
                                     type='text' 
                                     placeholder='Instructions'
                                     name="instructions"

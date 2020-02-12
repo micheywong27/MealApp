@@ -352,6 +352,9 @@ class App extends React.Component {
     // Save groceryItems back to local storage
     existingEntries.push(newItem);
     localStorage.setItem("groceryItems", JSON.stringify(existingEntries));
+    this.setState({
+      groceryList: existingEntries
+    })
   }
 
     resetGroceryItems=(uncheckedItems)=>{
@@ -370,7 +373,7 @@ class App extends React.Component {
         })
     }
   
-  render(){ 
+  render(){   
     var existingEntries = JSON.parse(localStorage.getItem("groceryItems"));
     return (
       <div className="App">
@@ -418,6 +421,7 @@ class App extends React.Component {
                                                             createCheckboxes={this.createCheckboxes}
                                                             resetGroceryItems={this.resetGroceryItems}
                                                             username={this.state.username}
+                                                            addGroceryItem={this.addGroceryItem}
                                                             /> } />    
           <Route path='/grocerylist/update' render={() => <GroceryListUpdate existingEntries={existingEntries}/> } />                                                                                              
           <Route path='/form' render={() => <RecipeForm submitForm={this.submitForm}

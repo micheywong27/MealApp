@@ -45,7 +45,7 @@ class RecipeForm extends React.Component{
                                 value={ingredients}
                                 onChange={(e) => this.props.onChange(e)} />
                         <br />
-                        <textarea className="form-input"
+                        <textarea className="form-input-instructions"
                                     type='text' 
                                     placeholder='Instructions'
                                     name="instructions"

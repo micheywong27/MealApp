@@ -84,7 +84,7 @@ class UserProfile extends React.Component{
             <div className="profile"> 
                 <h1>{this.props.username}'s Profile</h1> 
                 <br /> 
-                <h1>My Posts</h1> 
+                <h1 className="profile-header">My Posts</h1> 
                 {
                     this.props.myRecipes ? 
                     this.props.myRecipes.map(recipe => {
@@ -96,7 +96,7 @@ class UserProfile extends React.Component{
                     :
                     <p>You haven't posted any recipes</p> 
                 }
-                <h1>My Favorites</h1>
+                <h1 className="profile-header">My Favorites</h1>
                 { 
                     this.props.myFavs ? 
                     this.props.myFavs.map(recipe => { 
@@ -109,38 +109,33 @@ class UserProfile extends React.Component{
                     :
                     <p>You haven't favorited any recipes</p>
                 }
-                <h1>Grocery List</h1>
-                <button onClick={this.updateGroceryList}>Update grocery list</button>
                 {this.state.updateList ? 
-                    (<form onSubmit={this.handleFormSubmit}>
+                    (<div className="grocery-list"> 
+                        <h1>Grocery List</h1>
+                        <button onClick={this.updateGroceryList}>Update grocery list</button>
+                        <form onSubmit={this.handleFormSubmit}>
                         {this.createCheckboxes()}
-
-                        <div className="form-group mt-2">
-                            <button type="button"
-                                onClick={this.selectAll}
-                            >
-                            Select All
-                            </button>
-                            <button type="button"
-                                onClick={this.deselectAll}
-                            >
-                            Deselect All
-                            </button>
-                            <button type="submit"
-                                    onClick={this.updateGroceryList}>
-                            Save
-                            </button>
-                        </div>
-                    </form>)
+                            <div className="form-group mt-2">
+                                <button type="button" onClick={this.props.addGroceryItem}> Add item to grocery list </button>
+                                <button type="button" onClick={this.selectAll} > Select All </button>
+                                <button type="button" onClick={this.deselectAll}> Deselect All </button>
+                                <button type="submit" onClick={this.updateGroceryList}> Save </button>
+                            </div>
+                        </form>
+                    </div> )
                 :
-                    this.props.existingEntries ? 
-                        (       
-                            this.props.existingEntries.map((item,indx) => {
-                                return <GroceryItem item={item}  key={indx}/>
+                    (this.props.existingEntries ? 
+                        <div className="grocery-list"> 
+                            <h1>Grocery List</h1>
+                            <button onClick={this.updateGroceryList}>Update grocery list</button>
+                            { this.props.existingEntries.map((item,indx) => {
+                                return <GroceryItem item={item}  
+                                                    key={indx} />
                                 })
-                        )
+                            }
+                        </div>
                     :
-                        <p>You have no items in your grocery list</p>
+                        <p>You have no items in your grocery list</p>)
                 }
             </div>
         )

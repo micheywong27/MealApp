@@ -14,7 +14,7 @@ import { Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
-    recipes: ["chicken"],
+    recipes: [],
     myRecipes: [],
     searchTerm: '',
     nutritionInfo: [],
@@ -365,8 +365,6 @@ class App extends React.Component {
       })
     }
 
-     //on submit of login/signup page, take username prop it passes down 
-        //and reset this.state.username here
     updateUsername=(username)=>{
         this.setState({
           username: username
@@ -388,7 +386,8 @@ class App extends React.Component {
                                                             removeFromFavs={this.removeFromFavs}
                                                             myFavs={this.state.myFavs}
                                                             deleteRecipe={this.deleteRecipe}
-                                                            addRecipeToCalendar={this.addRecipeToCalendar}/> } />
+                                                            addRecipeToCalendar={this.addRecipeToCalendar}
+                                                            addGroceryItem={this.addGroceryItem}/> } />
           <Route path='/recipes/posts/:id' render={() => <MyPostsShowPage recipe={this.state.showMyRecipe}
                                                             addToFavs={this.addToFavs}
                                                             removeFromFavs={this.removeFromFavs}

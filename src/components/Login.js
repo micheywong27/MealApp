@@ -26,7 +26,7 @@ class Login extends React.Component{
         return (
             <div className="login-page">
                { this.state.signUp ?
-                <div>
+                <div className="login-form">
                     <h2>Sign Up: </h2>
                     <input type="text" 
                             name="username"
@@ -34,6 +34,7 @@ class Login extends React.Component{
                             value={username}
                             onChange={(e) => this.handleChange(e)}
                     />
+                    <br />
                     <PasswordMask
                         id="password"
                         name="password"
@@ -53,7 +54,7 @@ class Login extends React.Component{
                     </Link>
                 </div>
                 :
-                <div> 
+                <div className="login-form"> 
                     <h2>Login: </h2>
                     <input type="text" 
                             name="username"

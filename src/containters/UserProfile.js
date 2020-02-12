@@ -73,16 +73,19 @@ class UserProfile extends React.Component{
     createCheckboxes = () => this.props.existingEntries.map(this.createCheckbox);
     
     saveUncheckedItems=()=>{
+        console.log("in save unchecked Items", this.props.existingEntries)
         const uncheckedItems = Object.keys(this.state.checkboxes)
         .filter(key => this.state.checkboxes[key] === false)
-
         this.props.resetGroceryItems(uncheckedItems)
     }
 
     render(){ 
         return(
             <div className="profile"> 
-                <h1>{this.props.username}'s Profile</h1> 
+                <div className="profile-name"> 
+                <h1 className="username">{this.props.username}'s Profile</h1> 
+                <img className="img" src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/mandalorian-babyyoda-plush-frontpage-700x311.jpg" alt="babyyoda"/>
+                </div>
                 <br /> 
                 <h1 className="profile-header">My Posts</h1> 
                 {
@@ -111,23 +114,24 @@ class UserProfile extends React.Component{
                 }
                 {this.state.updateList ? 
                     (<div className="grocery-list"> 
-                        <h1>Grocery List</h1>
-                        <button onClick={this.updateGroceryList}>Update grocery list</button>
+                        <h1 style={{fontSize:"50px"}}>Grocery List</h1>
+                        <button onClick={this.updateGroceryList}>Go back to grocery list</button>
+                        <p>Select the items you would like to delete</p>
                         <form onSubmit={this.handleFormSubmit}>
                         {this.createCheckboxes()}
                             <div className="form-group mt-2">
-                                <button type="button" onClick={this.props.addGroceryItem}> Add item to grocery list </button>
                                 <button type="button" onClick={this.selectAll} > Select All </button>
                                 <button type="button" onClick={this.deselectAll}> Deselect All </button>
-                                <button type="submit" onClick={this.updateGroceryList}> Save </button>
+                                <button type="submit" onClick={this.updateGroceryList}> Delete </button>
                             </div>
                         </form>
                     </div> )
                 :
                     (this.props.existingEntries ? 
                         <div className="grocery-list"> 
-                            <h1>Grocery List</h1>
+                            <h1 style={{fontSize:"50px"}}>Grocery List</h1>
                             <button onClick={this.updateGroceryList}>Update grocery list</button>
+                            <button type="button" onClick={this.props.addGroceryItem}> Add item to grocery list </button>
                             { this.props.existingEntries.map((item,indx) => {
                                 return <GroceryItem item={item}  
                                                     key={indx} />

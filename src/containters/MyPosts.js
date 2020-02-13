@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 class MyPosts extends React.Component{
     render(){
         let { recipe }= this.props;
-        console.log(recipe.url)
         return(
             <div className="mypost" onClick={() => this.props.showRecipe(recipe)} >
                  <Link to={{pathname:`/recipes/posts/${recipe.id}`,

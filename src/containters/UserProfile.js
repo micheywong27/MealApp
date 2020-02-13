@@ -109,10 +109,10 @@ class UserProfile extends React.Component{
     render(){ 
         return(
             <div className="profile"> 
-                <div className="profile-name">            
+                <div className="profile-name">   
+                <img className="img" src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/mandalorian-babyyoda-plush-frontpage-700x311.jpg" alt="babyyoda"/>         
                     <h1 className="username">@{this.props.username}</h1> 
-                    {this.props.name && <h2 className="name">{this.props.name}</h2> }          
-                    <img className="img" src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/mandalorian-babyyoda-plush-frontpage-700x311.jpg" alt="babyyoda"/>
+                    {this.props.name && <h3 className="name">{this.props.name}</h3> }          
                     <button className="profile-buttons" onClick={this.viewGroceryList}>Grocery List <span aria-labelledby="list" role="img">📝</span></button>
                     <button className="profile-buttons" onClick={this.viewFavs}>My Favorites <span aria-labelledby="heart" role="img">❤️</span></button>
                     <button className="profile-buttons" onClick={this.viewPosts}>My Recipes <span aria-labelledby="mine" role="img">📍</span></button>

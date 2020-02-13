@@ -97,7 +97,7 @@ button {
 }
 
 .container {
-	margin: 36px auto;
+	margin: 70px auto;
 	width: 100%;
 	max-width: 800px;
 }
@@ -175,27 +175,6 @@ padding:12px;
   color: white;
 }
 
-.img{
-  border-radius: 80%;
-  width: 25%;
-  height: 40%;
-  float: left;
-  position: relative;
-  display: block;
-}
-
-.username{
-
-  float: left;
-  width: 20%;
-  clear:both;
-}
-
-.name{
-  float: inline-start;
-  width: 20%;
-}
-
 
 .profile-name{
   font-family: 'PT Sans Narrow', sans-serif;
@@ -203,8 +182,8 @@ padding:12px;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
   border-width: 2px;
-  margin: 30px 10px 10px 10px; 
-  padding: 20px 50px 20px 50px; 
+  margin: 30px 10px 30px 10px; 
+  padding: 10px 50px 10px 50px; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
   float: left;
   width: 98%;
@@ -347,23 +326,42 @@ div.rbc-calendar{
 
 /* inside of mypost */
 .recipe-img-card{ 
+  margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   object-fit: cover;
+  
 }
 
 .myposts{
   justify-content: center;
 }
 
+
+.img{
+  border-radius: 80%;
+  width: 25%;
+  height: 40%;
+  float: inline-start;
+  position: relative;
+  display: block;
+}
+
+.username{
+  float: left;
+  width: 20%;
+  margin-top: 0px;
+}
+
 .profile-buttons{
   padding: 15px;
-  margin-left: 40px;
+  margin-bottom: 10px;
   float: right;
 }
 
 .mypost{
+  position: static;
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
@@ -372,7 +370,7 @@ div.rbc-calendar{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
   float: left;
   width: 30%;
-  margin: 50px 10px 50px 10px; 
+  margin: 40px 10px 0px 10px; 
 }
 
 .myfavoprites{
@@ -393,13 +391,15 @@ div.rbc-calendar{
 }
 
 .recipes {
+  border-style: outset;
+  border-radius: 10px 10px;
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
-  border-width: 2px;
-  margin: 30px 10px 30px 10px; /* margin -> outside the border (outter layer) */
-  padding: 100px 50px 100px 50px; /* padding -> surrounds the words */
+  border-width: 3px;
+  margin: 30px 15px 30px 20px; /* margin -> outside the border (outter layer) */
+  padding: 40px 10px 40px 10px; /* padding -> surrounds the words */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
   float: left;
   width: 30%;

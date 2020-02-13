@@ -6,7 +6,8 @@ class Login extends React.Component{
     state = {
         signUp: false,
         username: '',
-        password: ''
+        password: '',
+        name: ''
     }
 
     toggleSignUp=()=>{
@@ -22,12 +23,19 @@ class Login extends React.Component{
     }
 
     render(){
-        let {username , password} = this.state;
+        let {name, username , password} = this.state;
         return (
             <div className="login-page">
                { this.state.signUp ?
                 <div className="login-form">
                     <h2>Sign Up: </h2>
+                    <input type="text" 
+                            name="name"
+                            placeholder="Full Name"
+                            value={name}
+                            onChange={(e) => this.handleChange(e)}
+                    />
+                    <br />
                     <input type="text" 
                             name="username"
                             placeholder="Username"
@@ -50,7 +58,7 @@ class Login extends React.Component{
                     />
                     <p>Max password length: 10 characters</p>
                     <Link to={{pathname:`/profile`}}> 
-                     <button onClick={()=>this.props.updateUsername(username)}>Submit</button>
+                     <button onClick={()=>this.props.updateUsername(name,username)}>Submit</button>
                     </Link>
                 </div>
                 :
@@ -58,7 +66,7 @@ class Login extends React.Component{
                     <h2>Login: </h2>
                     <input type="text" 
                             name="username"
-                            placeholder="Login"
+                            placeholder="Login with username"
                             value={username}
                             onChange={(e) => this.handleChange(e)}
                         />
@@ -77,7 +85,7 @@ class Login extends React.Component{
                                     }}
                     />
                     <Link to={{pathname:`/profile`}}> 
-                    <button onClick={()=>this.props.updateUsername(username)}>Submit</button>
+                    <button onClick={()=>this.props.updateUsername(name, username)}>Submit</button>
                     </Link>
                     <br/>
                     <button onClick={this.toggleSignUp}>Create a new account</button>

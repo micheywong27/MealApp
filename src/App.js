@@ -36,7 +36,8 @@ class App extends React.Component {
     recipePostId: '',
     showPopup: false,
     groceryList: [],
-    username: 'Michelle'
+    username: 'michellew1',
+    name: 'Michelle Wong'
   }
 
   componentDidMount(){
@@ -365,9 +366,10 @@ class App extends React.Component {
       })
     }
 
-    updateUsername=(username)=>{
+    updateUsername=(name, username)=>{
         this.setState({
-          username: username
+          username: username,
+          name: name
         })
     }
   
@@ -420,6 +422,7 @@ class App extends React.Component {
                                                             createCheckboxes={this.createCheckboxes}
                                                             resetGroceryItems={this.resetGroceryItems}
                                                             username={this.state.username}
+                                                            name={this.state.name}
                                                             addGroceryItem={this.addGroceryItem}
                                                             /> } />    
           <Route path='/grocerylist/update' render={() => <GroceryListUpdate existingEntries={existingEntries}/> } />                                                                                              

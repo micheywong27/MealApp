@@ -2,7 +2,7 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .add-recipe-form{
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   background-color:rgba(151, 101, 78, 0.6) ;
   margin: 5%;
   color: white;
@@ -84,13 +84,16 @@ a:hover {
 }
 
 button {
+  margin: 5px 10px 5px 10px; 
   padding: 5px 20px 5px 20px;
   border-style: outset;
   border-radius: 20px 40px;
-  border-width: 5px;
+  border-width: 3px;
   border-color:rgb(236, 225, 126);
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-weight: bold;
   background-color: white;
+  color: black;
 }
 
 .container {
@@ -100,7 +103,7 @@ button {
 }
 
 .form {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
@@ -160,7 +163,7 @@ padding:12px;
 
 .navbar {
   display: flex;
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
@@ -168,22 +171,34 @@ padding:12px;
 }
 
 .profile {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
 }
 
 .img{
   border-radius: 80%;
-  width: 40%;
-  height: 80%;
+  width: 25%;
+  height: 40%;
   float: left;
+  position: relative;
+  display: block;
 }
 
 .username{
-  float: right;
+
+  float: left;
+  width: 20%;
+  clear:both;
 }
+
+.name{
+  float: inline-start;
+  width: 20%;
+}
+
+
 .profile-name{
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
@@ -208,7 +223,7 @@ div.rbc-event {
   background-color: rgb(236, 225, 126);
   color: black;
   border-color: white;
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   text-align: center;
   font-size-adjust: 18px;
   margin-left: auto;
@@ -217,7 +232,7 @@ div.rbc-event {
 
 /* this shows the weeks date i.e. Feb 02-08 */
 .rbc-toolbar-label {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: black;
 }
 
@@ -231,7 +246,7 @@ div.rbc-calendar{
 
 .calendar{
   background-color:rgba(151, 101, 78, 0.6) ;  /* rgba(red,green,blue,opacity) */
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: black;
   padding: 20px;
 }
@@ -247,11 +262,13 @@ div.rbc-calendar{
 }
 
 .form-check{
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   font-size: 30px;
   
 }
+
+
 
 .login-page {
   margin: 5% ;
@@ -259,7 +276,8 @@ div.rbc-calendar{
   background-color:rgba(151, 101, 78, 0.4) ;
   color: white;
   padding:10px;
-  font-family: "Lucida Console";
+  text-align: center;
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .popup {
@@ -268,11 +286,11 @@ div.rbc-calendar{
   background-color:rgba(151, 101, 78, 0.4) ;
   color: white;
   padding:10px;
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .schedule-meal-form {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   padding:10px;
   border: 2px solid #888;
@@ -283,7 +301,7 @@ div.rbc-calendar{
   border-radius: 20px 40px;
   border-width: 5px;
   border-color:rgb(236, 225, 126);
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   background-color: white;
   width: 30%;
   text-align: left;
@@ -295,7 +313,7 @@ div.rbc-calendar{
   border-radius: 20px 40px;
   border-width: 5px;
   border-color:rgb(236, 225, 126);
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   background-color: white;
   width: 30%;
   height: 150px;
@@ -303,6 +321,7 @@ div.rbc-calendar{
   padding: 20px;
   margin: 10px;
 }
+
 .recipeimg {
   border-style: groove;
   border-width: 10px;
@@ -316,7 +335,7 @@ div.rbc-calendar{
 }
 
 .recipe {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   margin: 30px;
   background-color:rgba(151, 101, 78, 0.6) ;
   border: 2px solid black;
@@ -326,31 +345,42 @@ div.rbc-calendar{
   color: white;
 }
 
-/* .profile-header {
-  z-index: 1;
-  widows: 100%;
-  margin-top: 20px;
-  height: 60px;
-  background-color: rgba(151, 101, 78, 0.6);
-  padding: 5px 50px 10px 50px; 
-} */
+/* inside of mypost */
+.recipe-img-card{ 
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.myposts{
+  justify-content: center;
+}
+
+.profile-buttons{
+  padding: 15px;
+  margin-left: 40px;
+  float: right;
+}
 
 .mypost{
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
   border-width: 2px;
-  margin: 30px 10px 30px 10px; 
-  padding: 100px 50px 100px 50px; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
   float: left;
   width: 30%;
+  margin: 50px 10px 50px 10px; 
 }
 
+.myfavoprites{
+  justify-content: center;
+}
 
 .grocery-list{
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
@@ -363,7 +393,7 @@ div.rbc-calendar{
 }
 
 .recipes {
-  font-family: "Lucida Console";
+  font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);

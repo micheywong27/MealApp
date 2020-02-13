@@ -4,9 +4,8 @@
 .add-recipe-form{
   font-family: 'PT Sans Narrow', sans-serif;
   background-color:rgba(151, 101, 78, 0.6) ;
-  margin: 5%;
+  margin: 50px 70px 50px 70px;
   color: white;
-  
 }
 
 .App {
@@ -108,11 +107,9 @@ button {
   background-color: rgba(151, 101, 78, 0.6);
   border: 2px solid rgba(151, 101, 78, 0.7);
   border-width: 2px;
-  margin: 30px 10px 30px 10px; 
-  padding: 40px 50px 100px 50px; 
+  margin: 50px 50px 50px 50px; 
+  padding: 50px 50px 30px 50px; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
-
-  
 }
 
 .heading {
@@ -153,12 +150,13 @@ padding:12px;
 .link {
   text-decoration: none;
   font-size: 20px;
-  color: white
+  color: white;
 }
 
 .logo {
   font-size: 35px;
-  color: white
+  padding: 10px 0px 0px 10px;
+  color: white;
 }
 
 .navbar {
@@ -244,7 +242,6 @@ div.rbc-calendar{
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   font-size: 30px;
-  
 }
 
 .login-form{
@@ -272,8 +269,8 @@ div.rbc-calendar{
 .schedule-meal-form {
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
-  padding:10px;
-  border: 2px solid #888;
+  padding: 40px 0px 10px 0px ;
+  border: 2px solid rgba(151, 101, 78, 0.7);
 }
 
 .form-input {
@@ -332,7 +329,6 @@ div.rbc-calendar{
   margin-right: auto;
   width: 100%;
   object-fit: cover;
-  
 }
 
 
@@ -340,6 +336,7 @@ div.rbc-calendar{
   border-radius: 80%;
   width: 25%;
   height: 40%;
+  margin-top: 10px;
   float: inline-start;
   position: relative;
   display: block;
@@ -347,8 +344,8 @@ div.rbc-calendar{
 
 .username{
   float: left;
-  width: 20%;
-  margin-top: 0px;
+  width: 10%;
+  margin-top: 15px;
 }
 
 .profile-buttons{
@@ -358,7 +355,7 @@ div.rbc-calendar{
 }
 
 .mypost{
-  position: relative;
+  position: static;
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);

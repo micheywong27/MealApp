@@ -153,8 +153,14 @@ padding:12px;
   color: white;
 }
 
+.navlink{
+  text-decoration: none;
+  font-size: 30px;
+  color: white;
+}
+
 .logo {
-  font-size: 35px;
+  font-size: 50px;
   padding: 10px 0px 0px 10px;
   color: white;
 }
@@ -356,6 +362,7 @@ div.rbc-calendar{
   padding: 15px;
   margin-bottom: 0px;
   float: right;
+  font-size: 30px;
 }
 
 .mypost{
@@ -389,6 +396,8 @@ div.rbc-calendar{
 }
 
 .recipes {
+  padding: 5px;
+  height: 15em;
   border-style: outset;
   border-radius: 10px 10px;
   font-family: 'PT Sans Narrow', sans-serif;

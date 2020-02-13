@@ -10,7 +10,8 @@ class MyPosts extends React.Component{
                         recipe: recipe
                         }}
                         className='link'>  
-                <h2>♦ {recipe.name}</h2>
+                <h2 className="recipe-card-text">♦ {recipe.name}</h2>
+                <img className="recipe-img-card" src={recipe.url} alt="recipe-img-card"/>
                 </Link>
             </div>
         )

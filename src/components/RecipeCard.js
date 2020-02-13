@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function RecipeCard(props){
+    console.log(props.recipe)
     let { recipe } = props;
     return(
         <div className="recipes" onClick={()=>props.fetchRecipe(recipe)}>
@@ -10,6 +11,7 @@ function RecipeCard(props){
                         }}
                         className='link'>            
                 <h1>♦ {recipe.title}</h1>
+                
             </Link>
         </div>
     )

@@ -36,7 +36,7 @@ class App extends React.Component {
     recipePostId: '',
     showPopup: false,
     groceryList: [],
-    username: 'Michelle'
+    username: 'michellew1'
   }
 
   componentDidMount(){

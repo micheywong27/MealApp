@@ -30,11 +30,10 @@ class Login extends React.Component{
                     <h2>Sign Up: </h2>
                     <input type="text" 
                             name="username"
-                            placeholder="Username"
+                            placeholder="Create a username"
                             value={username}
                             onChange={(e) => this.handleChange(e)}
                     />
-                    <br />
                     <PasswordMask
                         id="password"
                         name="password"
@@ -42,42 +41,53 @@ class Login extends React.Component{
                         value={password}
                         onChange={(e) => this.handleChange(e)}
                         maxLength={10}
+                        useVendorStyles={false}
                         inputStyles={{width:'20%',
                                     display: 'flex',
                                     justifyContent: 'center',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    margin: 'auto'
                                     }}
+                        buttonStyles={{position: "relative",
+                                        margin: 'auto',
+                                        justifyContent: 'center'
+                                        }}
                     />
                     <p>Max password length: 10 characters</p>
                     <Link to={{pathname:`/profile`}}> 
-                     <button onClick={()=>this.props.updateUsername(username)}>Submit</button>
+                     <button onClick={()=>this.props.updateUsername(username)}>Sign Up</button>
                     </Link>
+                    <button onClick={this.toggleSignUp}>Go back</button>
                 </div>
                 :
                 <div className="login-form"> 
-                    <h2>Login: </h2>
+                    <h2>Log In: </h2>
                     <input type="text" 
                             name="username"
-                            placeholder="Login with username"
+                            placeholder="Username"
                             value={username}
                             onChange={(e) => this.handleChange(e)}
                         />
-                    <br />
                     <PasswordMask
                         id="password"
                         name="password"
-                        placeholder="Enter password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => this.handleChange(e)}
                         maxLength={10}
                         inputStyles={{width:'20%',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        margin: 'auto'
+                                    }}
+                        buttonStyles={{ position: "relative",
+                                        margin: 'auto',
+                                        justifyContent: 'center'
                                     }}
                     />
                     <Link to={{pathname:`/profile`}}> 
-                    <button onClick={()=>this.props.updateUsername(username)}>Submit</button>
+                    <button onClick={()=>this.props.updateUsername(username)}>Log In</button>
                     </Link>
                     <br/>
                     <button onClick={this.toggleSignUp}>Create a new account</button>

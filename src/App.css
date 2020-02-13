@@ -183,7 +183,7 @@ padding:12px;
   border: 2px solid rgba(151, 101, 78, 0.7);
   border-width: 2px;
   margin: 30px 10px 30px 10px; 
-  padding: 10px 50px 10px 50px; 
+  padding: 0px 0px 10px 50px; 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
   float: left;
   width: 98%;
@@ -247,8 +247,9 @@ div.rbc-calendar{
   
 }
 
-
-
+.login-form{
+  padding: 30px 50px 30px 50px; 
+}
 .login-page {
   margin: 5% ;
   border: 2px solid #888;
@@ -334,10 +335,6 @@ div.rbc-calendar{
   
 }
 
-.myposts{
-  justify-content: center;
-}
-
 
 .img{
   border-radius: 80%;
@@ -356,12 +353,12 @@ div.rbc-calendar{
 
 .profile-buttons{
   padding: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   float: right;
 }
 
 .mypost{
-  position: static;
+  position: relative;
   font-family: 'PT Sans Narrow', sans-serif;
   color: white;
   background-color: rgba(151, 101, 78, 0.6);
@@ -370,7 +367,7 @@ div.rbc-calendar{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
   float: left;
   width: 30%;
-  margin: 40px 10px 0px 10px; 
+  margin: 40px 10px 0px 30px; 
 }
 
 .myfavoprites{

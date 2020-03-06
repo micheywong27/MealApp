@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Description: Mealed is a recipe scheduling application to spice up the everyday person’s routine meals by enabling users to search recipe ideas and schedule it on their own personal calendar to block out time in their day to make the dish. Each user can share their own recipes they have up their sleeve with the community, add items to their grocery list that they need to make a note to buy later on, and favorite other recipes. 
+Description: Mealed is a recipe scheduling application that spices up users' everyday meal routines by searching recipes and scheduling them on their own personal calendar. Each user is able to share their own recipes they have up their sleeve with the community add items to their grocery list, and favorite other individual's recipes to save for later.
 
 Demo: https://www.youtube.com/watch?v=3gDhMdaCxNI&t=16s
 

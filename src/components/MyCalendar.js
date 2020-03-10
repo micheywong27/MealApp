@@ -5,7 +5,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 class MyCalendar extends React.Component{
   render(){
-    
     const mappableEvents = this.props.events.map(event => {
        event.start = new Date(event.start)
        event.end = new Date(event.end)
